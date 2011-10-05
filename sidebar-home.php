@@ -1,6 +1,6 @@
 <div id="side">
   <div class="side-wrapper">
-    <a href="/tech-as-magic/"><img src="<?php echo get_template_directory_uri(); ?>/img/tech_as_magic.png" alt="Tech As Magic" title="Tech As Magic" /></a>
+    <center><a href="/tech-as-magic/"><img src="<?php echo get_template_directory_uri(); ?>/img/tech_as_magic.png" alt="Tech As Magic" title="Tech As Magic" /></a></center>
     <ul class="blog">
       <?php
       $args = array(
@@ -22,7 +22,7 @@
         <dl>
           <dt><a href="<?php echo the_permalink();?>"><?php echo substr($post->post_title, 0); ?></a></dt>
           <dd>
-            <a href="#"><img src="http://placehold.it/200x100/38375F/B6A186" /></a>
+            <a href="#"><img src="http://placehold.it/300x100/38375F/B6A186" /></a>
             <?php echo get_the_excerpt(); ?>
           </dd>
         </dl>
@@ -30,9 +30,11 @@
       <?php endwhile; ?>
     </ul>
     
-    <h3>[<a href="/tech-as-magic/">MORE</a>]</h3><br>
+    <a href="/tech-as-magic/">More Tech As Magic</a>
   
     <?php do_action('wcfn_openx', '300b'); ?>
+    
+    <?php echo wcfn_mylifescoop() ?>
   </div>
   <div class="clear"></div>
 </div><!-- #sidebar -->

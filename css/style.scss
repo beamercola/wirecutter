@@ -108,12 +108,27 @@ header {
 
 footer {
   background-color: #333;
+  margin-top: 2em;
   .wrapper {
     color: #fff;
-    padding: 10px 40px;
+    padding: 20px 40px;
     a {
       color: #fff;
-      text-decoration: none;
+      text-decoration: underline;
+    }
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    .about {
+      font-size: 20px;
+      padding-bottom: 5px;
+    }
+    .contact {
+      padding-bottom: 1em;
+      a {
+        padding-right: 1em;
+      }
     }
   }
 }
@@ -131,20 +146,28 @@ div#main {
   text-shadow: #fff 0 1px 0;
   .wrapper {
     @include container_12;
+    background-image: url(img/side_shadow.png);
+    background-repeat: no-repeat;
+    background-position: 690px 0;
     margin: 40px;
     div#content {
       @include grid($grid_9);
+      @include alpha;
+      width: 700px !important;
       h1 {
         font-size: 28px;
       }
     }
     div#side {
-      @include grid($grid_3);
-      background-image: url(img/side_shadow.png);
-      background-repeat: no-repeat;
+      @include grid($grid_4);
+      @include omega;
+      width: 300px !important;
       min-height: 600px;
       .side-wrapper {
-        padding-left: 25px;
+//        padding-left: 25px;
+      }
+      #ad300b {
+        margin-bottom: 2em;
       }
     }
   }
@@ -262,10 +285,15 @@ ul.blog {
 
 .box {
   @include box;
+  ul {
+    margin-left: 0;
+    padding-left: 1.5em;
+  }
 }
 
 div#content {
   .side {
+    width: 200px;
     dl {
       @include no-dl;
       dt {
@@ -323,6 +351,7 @@ div#content {
 }
 
 .article {
+  width: 450px !important;
   .image {
     .large {
       background-color: #fff;
@@ -484,4 +513,28 @@ div#comments {
   border-top: 1px solid #fff;
   border-bottom: 1px solid #ccc;
   margin: 2em 0;
+}
+
+.ad {
+  text-align: center;
+  div {
+    margin: 0 auto;
+  }
+}
+
+div#social {
+  position: absolute;
+  height: 80px;
+  top: 30px;
+  left: 40px;
+  .snipsnip {
+    color: #666;
+    font-size: 11px;
+    text-align: center;
+    padding-top: .5em;
+  }
+  #facebook {
+    margin-top: -10px;
+  }
+  
 }

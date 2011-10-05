@@ -5,21 +5,21 @@
 	Licensed under GPL and MIT.
 */
 
-$grid_1: 60px;
-$grid_2: 140px;
-$grid_3: 220px;
-$grid_4: 300px;
-$grid_5: 380px;
-$grid_6: 460px;
-$grid_7: 540px;
-$grid_8: 620px;
-$grid_9: 700px;
-$grid_10: 780px;
-$grid_11: 860px;
-$grid_12: 940px;
+$grid_1: 65px;
+$grid_2: 150px;
+$grid_3: 235px;
+$grid_4: 320px;
+$grid_5: 405px;
+$grid_6: 490px;
+$grid_7: 575px;
+$grid_8: 600px;
+$grid_9: 745px;
+$grid_10: 830px;
+$grid_11: 915px;
+$grid_12: 1000px;
 
 @mixin container_12 {
-  width: 960px;
+  width: 1020px;
 }
 	
 @mixin alpha {

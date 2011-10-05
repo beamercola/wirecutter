@@ -16,7 +16,9 @@
   );
   $leaderboard_categories = get_categories($args);
   
+  $i = 0;
   foreach($leaderboard_categories as $category) {
+    $i++;
 ?>
   <li class="<?php echo $category->slug ?>">
     <dl>

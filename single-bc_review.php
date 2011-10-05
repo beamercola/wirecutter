@@ -78,7 +78,7 @@
     <div class="clear"></div>
 </div>
 
-<div class="grid_3 side omega">
+<div class="grid_2 side omega">
   <div class="right">
     <div class="buy">
       <dl>
@@ -104,8 +104,6 @@
         </dd>
       </dl>
     </div>
-    
-    <?php echo wcfn_mylifescoop() ?>
     
     <div class="related-categories box">
       <h2>Read More</h2>

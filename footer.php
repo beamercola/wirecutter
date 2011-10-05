@@ -11,36 +11,40 @@
 
 <footer>
   <div class="wrapper">
-    <p>By <a href="/author/blam8/">Brian Lam</a> and <a href="/authors">Friends</a></p>
-    <p>The Wirecutter is a list of the best gadgets.</p>
-    <p>
-      <a href="mailto:notes@thewirecutter.com">Contact</a>
-      <a href="/about">About</a>
-      <a href="/legal">Legal</a>
-      <a href="mailto:advertise@thewirecutter.com">Advertising</a>
-    </p>
-    <p>
-      Part of the Awl Family:
-      <a href="http://www.theawl.com">The Awl</a>,
-      <a href="http://splitsider.com">Splitsider</a> and 
-      <a href="http://thehairpin.com">The Hairpin</a>
-    </p>
+    <div class="grid_5">
+    <p class="about">The Wirecutter is an up-to-date list of the best gadgets.</p>
+    <p class="by">By <a href="/author/blam8/">Brian Lam</a> and <a href="/authors">Friends</a></p>
+    </div>
+    <div class="grid_4">
+      <p class="contact">
+        <a href="mailto:notes@thewirecutter.com">Contact</a>
+        <a href="/about">About</a>
+        <a href="/legal">Legal</a>
+        <a href="mailto:advertise@thewirecutter.com">Advertising</a>
+      </p>
+      <p class="awl">
+        Part of the Awl Family:
+        <a href="http://www.theawl.com">The Awl</a>,
+        <a href="http://splitsider.com">Splitsider</a> and 
+        <a href="http://thehairpin.com">The Hairpin</a>
+      </p>
+    </div>
+    <div class="clear"></div>
   </div>
 </footer>
 
 <div id="social">
-    <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical">Tweet</a>
-    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    <div id="facebook" class="fb-like" data-href="<?php global $fburl; echo $fburl ?>" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false"></div>
-    <a id="snipsnip" href="#">#snipsnip</a>
-    <a id="rss" href="http://feeds.feedburner.com/TheWirecutter"><img src="<?php echo get_template_directory_uri(); ?>/img/rss.png"/></a>
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical">Tweet</a>
+  <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+  <div id="facebook" class="fb-like" data-href="<?php global $fburl; echo $fburl ?>" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false"></div>
+  <div class="snipsnip">#snipsnip</div>
 </div>
 
 
