@@ -1,0 +1,487 @@
+@import 'reset';
+@import '960';
+
+$dark_brown: #503D15;
+$red: #DF5341;
+$blue: #6D8AA4;
+$green: #728057;
+$gold: #BC9D54;
+
+@mixin no-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin no-dl {
+  dt {
+    font-weight: normal;
+  }
+  dd {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@mixin rounded($px) {
+  -webkit-border-radius: $px;
+  -moz-border-radius: $px;
+  -o-border-radius: $px;
+}
+
+@mixin glow($color, $size, $offset) {
+  box-shadow: 0px $offset $size $color;
+  -webkit-box-shadow: 0px $offset $size $color;
+}
+
+.clear {
+  @include clearfix;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: Cantarell, sans-serif;
+  font-weight: normal;
+  margin: 0 0 .5em 0;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+body {
+  background-color: #F8F5EA;
+}
+
+header {
+  background-color: #EDEAE0;
+  background-image: url(img/bg_dark.png);
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  .wrapper {
+    padding: 20px 40px;
+  }
+  .ad {
+    margin: 0 auto;
+    img {
+      border: 1px solid #fff;
+    }
+  }
+  .content {
+    text-align: left;
+    position: relative;
+    img#logo {
+      position: absolute;
+      top: 60px;
+      left: 0;
+    }
+    .slogan {
+      @include no-dl;
+      position: absolute;
+      left: 500px;
+      top: 40px;
+      width: 300px;
+      dt {
+        color: $blue;
+        font-family: Cantarell, sans-serif;
+        font-size: 18px;
+        text-transform: uppercase;
+        text-shadow: #fff 0 1px 0;
+      }
+      dd {
+        a {
+          color: $red;
+          display: block;
+          font-family: Cantarell, sans-serif;
+          text-transform: uppercase;
+          font-size: 11px;
+          text-shadow: #fff 0 1px 0;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  background-color: #333;
+  .wrapper {
+    color: #fff;
+    padding: 10px 40px;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+div#main {
+  background-color: #F8F5EA;
+  background-image: url(img/bg_light.png);
+  border-top: 1px solid #fff;
+  box-shadow: 0px -4px 5px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0px -4px 5px rgba(0, 0, 0, .1);
+  color: $dark_brown;
+  margin-top: 250px;
+  position: relative;
+  z-index: 2;
+  text-shadow: #fff 0 1px 0;
+  .wrapper {
+    @include container_12;
+    margin: 40px;
+    div#content {
+      @include grid($grid_9);
+      h1 {
+        font-size: 28px;
+      }
+    }
+    div#side {
+      @include grid($grid_3);
+      background-image: url(img/side_shadow.png);
+      background-repeat: no-repeat;
+      min-height: 600px;
+      .side-wrapper {
+        padding-left: 25px;
+      }
+    }
+  }
+}
+
+a {
+  color: $dark_brown;
+  text-decoration: none;
+  &:hover {
+    color: $red;
+    text-decoration: underline;
+  }
+  &:visited { color: $dark_brown; }
+}
+
+ul.leaderboard {
+  @include no-list;
+  li {
+    @include grid($grid_3);
+    margin-bottom: 1em;
+    width: 200px;
+    ul {
+      @include no-list;
+      li {
+        @include alpha;
+        @include omega;
+        margin: 0;
+      }
+    }
+    &.laptops         dt { background-image: url(img/icons/laptops.png); }
+    &.smartphones     dt { background-image: url(img/icons/smartphones.png); }
+    &.tablets         dt { background-image: url(img/icons/tablets.png); }
+    &.cameras         dt { background-image: url(img/icons/cameras.png); }
+    &.tvs             dt { background-image: url(img/icons/tvs.png); }
+    &.personal-audio  dt { background-image: url(img/icons/personal-audio.png); }
+    &.home-theater    dt { background-image: url(img/icons/home-theater.png); }
+    &.tvs dt { text-transform: none; }
+    dl {
+      @include no-dl;
+      dt {
+        a { display: block; }
+        a:hover { text-decoration: none; }
+        font-family: Cantarell, sans-serif;
+        font-size: 18px;
+        text-transform: uppercase;
+        line-height: 30px;
+        background-repeat: no-repeat;
+        background-position: right center;
+      }
+      dd {
+        img {
+          background-color: #fff;
+          height: 75px;
+          margin: .5em 0;
+          width: 200px;
+          @include rounded(5px);
+          @include glow(#EFE9D8, 5px, 0);
+          &:hover {
+            @include glow(#ccc, 5px, 0);
+          }
+        }
+        a {
+          display: block;
+          font-size: 11px;
+          text-transform: uppercase;
+          text-shadow: #fff 0 1px 0;
+          padding-bottom: .5em;
+        }
+      }
+    }
+  }
+}
+
+ul.blog {
+  @include no-list;
+  li {
+    margin-bottom: 1em;
+    dl {
+      @include no-dl;
+      dt {
+        font-size: 18px;
+        font-family: Cantarell, sans-serif;
+        text-align: justify;
+        a:hover { text-decoration: none; }
+      }
+      dd {
+        text-align: justify;
+        img {
+          margin: .5em 0;
+          @include rounded(5px);
+        }
+        a {
+          color: $red;
+        }
+        p {
+          margin: 0;
+          padding: 0;
+        }
+        font-size: 13px
+      }
+    }
+  }
+}
+
+@mixin box {
+  @include rounded(5px);
+  @include glow(#ccc, 5px, 0);
+  background-color: rgba(255, 255, 255, .5);
+  margin-bottom: 1em;
+  padding: 1em;
+  a {
+    color: $red;
+  }
+}
+
+.box {
+  @include box;
+}
+
+div#content {
+  .side {
+    dl {
+      @include no-dl;
+      dt {
+        font-size: 11px;
+        font-style: italic;
+        margin-bottom: 1em;
+        .price {
+          background-color: $green;
+          border-top: 1px solid rgba(255, 255, 255, .95);
+          border-bottom: 1px solid rgba(0, 0, 0, .20);
+          color: #fff;
+          font-style: normal;
+          padding: .5em;
+          text-align: center;
+          text-shadow: #000 0 -1px 0;
+          font-size: 18px;
+          @include rounded(5px);
+        }
+      }
+      ul {
+        @include no-list;
+        li {
+          a {
+            color: #fff;
+            display: block;
+            font-size: 14px;
+            padding: .75em .5em;
+            text-align: center;
+            text-shadow: #666 0 -1px 0;
+            border-top: 1px solid rgba(255, 255, 255, .95);
+            border-bottom: 1px solid rgba(0, 0, 0, .20);
+            &:hover {
+              text-decoration: none;
+              -moz-box-shadow: inset 0 0 5px 5px rgba(0,0,0,.2);
+              -webkit-box-shadow: inset 0 0 5px 5px rgba(0,0,0,.2);
+              box-shadow: inset 0 0 5px 5px rgba(0,0,0,.2);
+            }
+          }
+          &:first-child a {
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+          }
+          &:last-child a {
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+          }
+          &.amazon a    { background-color: $gold; }
+          &.apple a     { background-color: #999; }
+          &.bestbuy a   { background-color: $blue; }
+          &.monoprice a { background-color: #C52227; }
+        }
+      }
+    }
+  }
+}
+
+.article {
+  .image {
+    .large {
+      background-color: #fff;
+      margin: 1em 0;
+      text-align: center;
+      width: 450px;
+      @include rounded(5px);
+      img {
+        max-width: 450px;
+        @include rounded(5px);
+      }
+    }
+    ul {
+      @include no-list;
+      li {
+        background-color: #fff;
+        float: left;
+        margin-right: 10px;
+        img { @include rounded(5px); }
+      }
+    }
+  }
+  .meta {
+    margin-bottom: 1em;
+    .categories {
+      padding-top: .5em;
+      ul {
+        @include no-list;
+        li {
+          float: left;
+          a {
+            background-image: url(img/meta-tag.png);
+            background-repeat: no-repeat;
+            background-position: left middle;
+            color: $blue;
+            display: block;
+            padding-left: 16px;
+            margin-right: 1em;
+          }
+        }
+      }
+    }
+    span {
+      background-repeat: no-repeat;
+      background-position: left middle;
+      float: left;
+      margin-right: 2em;
+      padding-left: 16px;
+    }
+    .comments {
+      background-image: url(img/meta-comments.png);
+      color: #6E8AA4;
+    }
+    .likes {
+      background-image: url(img/meta-likes.png);
+      color: #DF5442;
+    }
+    .date {
+      background-image: url(img/meta-date.png);
+      color: $green;
+    }
+    .author {
+      background-image: url(img/meta-author.png);
+      color: #A69B98;
+    }
+  }
+  .specs {
+    background-color: rgba(255, 255, 255, .5);
+    padding: 1em;
+    width: $grid_3;
+    @include rounded(5px);
+    dl {
+      @include no-dl;
+      dt {
+        font-weight: bold;
+      }
+      dd {
+        margin-bottom: .5em;
+      }
+    }
+  }
+  .sources {
+    @include clearfix;
+    border-top: 2px solid $blue;
+    padding-top: 1em;
+    margin-top: 2em;
+    dl {
+      @include no-dl;
+      dt {
+        font-style: italic;
+      }
+      dd {
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 1.5em;
+      }
+    }
+  }
+}
+
+ul.categories {
+  @include no-list;
+  li {
+    margin-bottom: .5em;
+    a {
+      display: block;
+      font-size: 14px;
+    }
+    ul {
+      @include no-list;
+      margin-top: .5em;
+      li {
+        margin-left: 1.5em;
+        a {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+div#comments {
+  ol {
+    @include no-list;
+    li {
+      img.avatar {
+        margin-right: 1em;
+      }
+      footer {
+        @include rounded(5px);
+        @include glow(#ccc, 5px, 0);
+        background-color: #fff !important;
+      }
+    }
+  }
+  div#respond {
+    @include box;
+    @include glow(#666, 5px, 0);
+    margin-top: 2em;
+    label {
+      display: block;
+    }
+    .form-allowed-tags {
+      font-size: 11px;
+    }
+    textarea {
+      @include rounded(5px);
+      border-color: #ccc;
+      width: 100%;
+    }
+  }
+}
+
+.edit-link {
+  display: none;
+}
+
+.line {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ccc;
+  margin: 2em 0;
+}

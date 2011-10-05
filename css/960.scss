@@ -1,0 +1,83 @@
+/*
+	12 Column 960 Grid Sysytem as Sass Mixins
+	Based on 960 Grid System - http://960.gs/
+
+	Licensed under GPL and MIT.
+*/
+
+$grid_1: 60px;
+$grid_2: 140px;
+$grid_3: 220px;
+$grid_4: 300px;
+$grid_5: 380px;
+$grid_6: 460px;
+$grid_7: 540px;
+$grid_8: 620px;
+$grid_9: 700px;
+$grid_10: 780px;
+$grid_11: 860px;
+$grid_12: 940px;
+
+@mixin container_12 {
+  width: 960px;
+}
+	
+@mixin alpha {
+  margin-left: 0;
+}
+
+@mixin omega {
+  margin-right: 0;
+}
+
+@mixin grid($grid_width) {
+  width: $grid_width;
+  display:inline;
+  float: left;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@mixin prefix($grid_width) {
+  padding-left: $grid_width + 20;
+}
+
+@mixin suffix($grid_width) {
+  padding-right: $grid_width + 20;
+}
+
+@mixin push($grid_width) {
+  left: $grid_width + 20;
+}
+
+@mixin pull($grid_width) {
+  left: $grid_width - (($grid_width * 2) - 20);
+}
+  
+@mixin clearfix {
+  *display: inline-block;
+  &:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+.grid_1  { @include grid($grid_1); }
+.grid_2  { @include grid($grid_2); }
+.grid_3  { @include grid($grid_3); }
+.grid_4  { @include grid($grid_4); }
+.grid_5  { @include grid($grid_5); }
+.grid_6  { @include grid($grid_6); }
+.grid_7  { @include grid($grid_7); }
+.grid_8  { @include grid($grid_8); }
+.grid_9  { @include grid($grid_9); }
+.grid_10 { @include grid($grid_10); }
+.grid_11 { @include grid($grid_11); }
+.grid_12 { @include grid($grid_12); }
+.alpha   { @include alpha; }
+.omega   { @include omega; }
+.prefix_1 { @include prefix($grid_1) }
