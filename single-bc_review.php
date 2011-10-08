@@ -61,6 +61,13 @@
       </div>
     </div>
     
+    <div class="key-specs">
+      <?php $key_specs = get_post_meta($post->ID, '_wcspecs', true); ?>
+      <?php if( $key_specs ): ?>
+        <h2>Key Specs</h2>
+        <?php echo $key_specs ?>
+      <?php endif; ?>
+    </div>
     
     <div class="best-sources">
       <?php $appendix = get_post_meta($post->ID, 'bc_appendix', true); ?>
