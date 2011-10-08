@@ -498,3 +498,69 @@ function twentyeleven_comment( $comment, $args, $depth ) {
 			break;
 	endswitch;
 }
+
+
+
+
+/*
+ * Add a meta box for "Key Specs" to Reviews
+ */
+
+// add meta box to post type bc_review
+function wcspecs_add_meta_boxes() {
+    add_meta_box( 'wcspecs-meta', 'Key Specs', 'wcspecs_meta_function', 'bc_review', 'normal', 'high');
+}
+add_action( 'add_meta_boxes', 'wcspecs_add_meta_boxes' );
+
+// fixup funny spacing on mce editor
+function wcspecs_admin_print_styles() {
+?>
+    <style type="text/css">
+    #wcspecs-meta { padding-bottom: 20px; }
+    #wcspecs-meta .inside { padding: 0; margin: 0;}
+    </style>
+<?php
+}
+add_action( 'admin_print_styles-post.php', 'wcspecs_admin_print_styles' );
+add_action( 'admin_print_styles-post-new.php', 'wcspecs_admin_print_styles' );
+
+// add wcspecs_meta as a rich textarea
+function wcspecs_meta_function( $post ) {
+    $wcspecs_meta = get_post_meta( $post->ID, '_wcspecs', true);
+    // attach the tiny mce editor to #wcspecs_meta
+    // http://stackoverflow.com/questions/2855890/add-tinymce-to-wordpress-plugin
+    if (function_exists('wp_tiny_mce')) {
+        add_filter('teeny_mce_before_init', create_function('$a', '
+            $a["theme"] = "advanced";
+            $a["skin"] = "wp_theme";
+            $a["height"] = "200";
+            $a["width"] = "100%";
+            $a["onpageload"] = "";
+            $a["mode"] = "exact";
+            $a["elements"] = "wcspecs_meta";
+            $a["editor_selector"] = "mceEditor";
+            $a["plugins"] = "safari,inlinepopups,spellchecker";
+            $a["forced_root_block"] = false;
+            $a["force_br_newlines"] = true;
+            $a["force_p_newlines"] = false;
+            $a["convert_newlines_to_brs"] = true;
+            return $a;'));
+        wp_tiny_mce(true);
+    }
+?> 
+    <textarea id="wcspecs_meta" name="wcspecs_meta"><?php echo $wcspecs_meta ?></textarea>
+<?php
+}
+
+// save _wcspecs as post meta
+function wcspecs_save_post( $post_id ) {
+    // verify meta is present
+    if( ! isset( $_POST['wcspecs_meta'] ) ) {
+        return;
+    }
+    // update
+    $wcspecs_meta = $_POST['wcspecs_meta'];
+    update_post_meta( $post_id, '_wcspecs', $wcspecs_meta );
+}
+add_action( 'save_post', 'wcspecs_save_post' );
+
