@@ -815,6 +815,8 @@ div#content .side {
       background-color: #6d8aa4; }
     div#content .side dl ul li.monoprice a {
       background-color: #C52227; }
+  div#content .side .social {
+    padding-left: 40px; }
 
 .article {
   width: 450px !important; }
