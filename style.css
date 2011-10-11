@@ -447,7 +447,8 @@ header {
   width: 100%;
   height: 250px; }
   header .wrapper {
-    padding: 20px 40px; }
+    padding: 20px 40px;
+    width: 1020px; }
   header .ad {
     margin: 0 auto; }
     header .ad img {
@@ -503,14 +504,21 @@ header {
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -o-border-radius: 5px;
+        box-shadow: 0px 0 5px #cccccc;
+        -webkit-box-shadow: 0px 0 5px #cccccc;
         background-color: #df5341;
         border-width: 0;
         color: #fff;
         float: left;
         line-height: 24px;
         padding: 4px;
-        font-size: 18px;
-        width: 75px; }
+        font-size: 14px;
+        width: 75px;
+        text-shadow: #666666 0 -1px 0; }
+    header .content .sponsor {
+      position: absolute;
+      top: 40px;
+      right: 30px; }
 
 footer {
   background-color: #222;
@@ -819,6 +827,12 @@ div#content .side {
     text-decoration: none; }
   .article img {
     max-width: 450px; }
+  .article .image img {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    box-shadow: 0px 0 5px #cccccc;
+    -webkit-box-shadow: 0px 0 5px #cccccc; }
   .article .image .large {
     background-color: #fff;
     margin: 1em 0;
@@ -828,10 +842,7 @@ div#content .side {
     -moz-border-radius: 5px;
     -o-border-radius: 5px; }
     .article .image .large img {
-      max-width: 450px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -o-border-radius: 5px; }
+      max-width: 450px; }
   .article .image ul {
     list-style-type: none;
     margin: 0;
@@ -840,10 +851,6 @@ div#content .side {
       background-color: #fff;
       float: left;
       margin-right: 10px; }
-      .article .image ul li img {
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -o-border-radius: 5px; }
   .article .meta {
     margin-bottom: 1em; }
     .article .meta ul {

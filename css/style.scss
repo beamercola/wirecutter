@@ -64,6 +64,7 @@ header {
   height: 250px;
   .wrapper {
     padding: 20px 40px;
+    @include container_12;
   }
   .ad {
     margin: 0 auto;
@@ -120,17 +121,23 @@ header {
       }
       input[type="submit"] {
         @include rounded(5px);
+        @include glow(#ccc, 5px, 0);
         background-color: $red;
         border-width: 0;
         color: #fff;
         float: left;
         line-height: 24px;
         padding: 4px;
-        font-size: 18px;
+        font-size: 14px;
         width: 75px;
+        text-shadow: #666 0 -1px 0;
       }
     }
-    
+    .sponsor {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+    }
   }
 }
 
@@ -448,6 +455,10 @@ div#content {
     max-width: 450px;
   }
   .image {
+    img {
+      @include rounded(5px);
+      @include glow(#ccc, 5px, 0);
+    }
     .large {
       background-color: #fff;
       margin: 1em 0;
@@ -456,7 +467,6 @@ div#content {
       @include rounded(5px);
       img {
         max-width: 450px;
-        @include rounded(5px);
       }
     }
     ul {
@@ -465,7 +475,6 @@ div#content {
         background-color: #fff;
         float: left;
         margin-right: 10px;
-        img { @include rounded(5px); }
       }
     }
   }

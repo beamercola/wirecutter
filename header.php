@@ -22,7 +22,8 @@
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/facebox/jquery.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/modernizr-2.0.6.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/facebox/facebox.js"></script>
 <link rel="stylesheet" type="text/css" media="all" href="<?php echo get_template_directory_uri(); ?>/js/facebox/facebox.css" />
 <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
@@ -52,6 +53,8 @@
               <div class="clear"></div>
             </form>
           </div>
+          
+          <img src="<?php echo get_template_directory_uri(); ?>/img/intel.png" class="sponsor" />
           
         </div>
       </div>
