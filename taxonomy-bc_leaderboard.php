@@ -1,25 +1,26 @@
 <?php get_header(); ?>
 
-<div class="grid_6 alpha">
+<div class="grid_6 leaderboard article alpha">
   <h1 class="page-title">Leaderboard: <?php single_tag_title() ?></h1>
-
-  <?php while ( have_posts() ): the_post(); ?>
-  <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-    <h2 class="entry-title"><?php edit_post_link('Edit', '<span class="edit-link">[', ']</span>' ); ?><a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a></h2>
-    <?php
-      // echo var_dump($post);
-      $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID ));
-      if(count($attachments) > 0) {
-        $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450));
-        echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/>");
-      }
-    ?>
-    <div class="entry-content">
-      <?php the_excerpt('[...]'); ?>
-    </div><!-- .entry-content -->
-  </div><!-- #post -->
-    
-  <?php endwhile; // end of the loop. ?>
+  
+  <div class="reviews">
+    <?php while ( have_posts() ): the_post(); ?>
+    <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+      <h2 class="entry-title"><?php edit_post_link('Edit', '<span class="edit-link">[', ']</span>' ); ?><a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a></h2>
+      <?php
+        // echo var_dump($post);
+        $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID ));
+        if(count($attachments) > 0) {
+          $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450));
+          echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/>");
+        }
+      ?>
+      <div class="entry-content">
+        <?php the_excerpt('[...]'); ?>
+      </div><!-- .entry-content -->
+    </div><!-- #post -->
+    <?php endwhile; // end of the loop. ?>
+  </div>
     
   <div id="nav-below" class="navigation clearfix">
     <div class="nav-next"><?php next_posts_link( '<span class="meta-nav">&laquo;</span> Older posts' ) ?></div>
@@ -27,16 +28,16 @@
   </div>
         
   <?php 
-      $slug = get_query_var('bc_leaderboard');
-      $description = term_description( get_term_by( 'slug', $slug, 'bc_leaderboard' )->term_id, 'bc_leaderboard' );
-      if( $description ):
+    $slug = get_query_var('bc_leaderboard');
+    $description = term_description( get_term_by( 'slug', $slug, 'bc_leaderboard' )->term_id, 'bc_leaderboard' );
+    if( $description ):
   ?>
-      <div class="vbreak">***</div>
-      <?php echo $description ?>
+    <div class="vbreak">***</div>
+    <?php echo $description ?>
   <?php endif; ?>
   	
 </div>
-<div class="grid_3 omega side">
+<div class="grid_2 omega side">
   <?php
     $args = array(
       'taxonomy'     => 'bc_leaderboard',

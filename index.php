@@ -24,7 +24,7 @@
     <dl>
       <dt><a href="/leaderboard/<?php echo $category->slug; ?>"><?php echo $category->name; ?></a></dt>
       <dd>
-        <a href="#"><img src="http://placehold.it/200x75/ffffff" /></a>
+        <a href="/leaderboard/<?php echo $category->slug; ?>"><img src="http://placehold.it/200x75/ffffff" /></a>
         <ul>
 <?php
         $wp_query = null;

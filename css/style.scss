@@ -76,14 +76,14 @@ header {
     position: relative;
     img#logo {
       position: absolute;
-      top: 60px;
+      top: 47px;
       left: 0;
     }
     .slogan {
       @include no-dl;
       position: absolute;
-      left: 500px;
-      top: 40px;
+      left: 325px;
+      top: 39px;
       width: 300px;
       dt {
         color: $blue;
@@ -103,11 +103,39 @@ header {
         }
       }
     }
+    .search {
+      position: absolute;
+      top: 80px;
+      right: 30px;
+      input[type="text"] {
+        @include rounded(5px);
+        @include glow(#ccc, 5px, 0);
+        border-width: 0;
+        float: left;
+        font-size: 18px;
+        line-height: 24px;
+        margin-right: 10px;
+        padding: 4px;
+        width: 200px;
+      }
+      input[type="submit"] {
+        @include rounded(5px);
+        background-color: $red;
+        border-width: 0;
+        color: #fff;
+        float: left;
+        line-height: 24px;
+        padding: 4px;
+        font-size: 18px;
+        width: 75px;
+      }
+    }
+    
   }
 }
 
 footer {
-  background-color: #333;
+  background-color: #222;
   margin-top: 2em;
   .wrapper {
     color: #fff;
@@ -169,6 +197,81 @@ div#main {
       #ad300b {
         margin-bottom: 2em;
       }
+      .search {
+        input[type="text"] {
+          @include rounded(5px);
+          @include glow(#ccc, 5px, 0);
+          border-width: 0;
+          float: left;
+          font-size: 18px;
+          line-height: 24px;
+          margin-right: 10px;
+          padding: 4px;
+          width: 175px;
+        }
+        input[type="submit"] {
+          @include rounded(5px);
+          background-color: $red;
+          border-width: 0;
+          color: #fff;
+          float: left;
+          line-height: 24px;
+          padding: 4px;
+          font-size: 18px;
+          width: 75px;
+        }
+      }
+      div#search {
+//        background-color: $red;
+        margin: 1em 0;
+//        padding: 5px;
+//        @include rounded(5px);
+        input {
+          @include rounded(5px);
+          border: 5px solid $red;
+          padding: 6px;
+          font-size: 18px;
+          width: 278px;
+        }
+      }
+      .recent {
+        margin-bottom: 2em;
+        a.more {
+          color: $blue;
+          display: block;
+          text-align: right;
+        }
+        ul.blog {
+          @include no-list;
+          li {
+            margin-bottom: 1em;
+            dl {
+              @include no-dl;
+              dt {
+                font-size: 18px;
+                font-family: Cantarell, sans-serif;
+                text-align: justify;
+                a:hover { text-decoration: none; }
+              }
+              dd {
+                text-align: justify;
+                img {
+                  margin: .5em 0;
+                  @include rounded(5px);
+                }
+                a {
+                  color: $red;
+                }
+                p {
+                  margin: 0;
+                  padding: 0;
+                }
+                font-size: 13px
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -199,11 +302,16 @@ ul.leaderboard {
     }
     &.laptops         dt { background-image: url(img/icons/laptops.png); }
     &.smartphones     dt { background-image: url(img/icons/smartphones.png); }
+    &.cell-phones     dt { background-image: url(img/icons/cell-phones.png); }
     &.tablets         dt { background-image: url(img/icons/tablets.png); }
     &.cameras         dt { background-image: url(img/icons/cameras.png); }
     &.tvs             dt { background-image: url(img/icons/tvs.png); }
     &.personal-audio  dt { background-image: url(img/icons/personal-audio.png); }
     &.home-theater    dt { background-image: url(img/icons/home-theater.png); }
+    &.networking      dt { background-image: url(img/icons/networking.png); }
+    &.storage         dt { background-image: url(img/icons/storage.png); }
+    &.cables          dt { background-image: url(img/icons/cables.png); }
+    &.e-book-readers  dt { background-image: url(img/icons/e-book-readers.png); }
     &.tvs dt { text-transform: none; }
     dl {
       @include no-dl;
@@ -241,36 +349,6 @@ ul.leaderboard {
   }
 }
 
-ul.blog {
-  @include no-list;
-  li {
-    margin-bottom: 1em;
-    dl {
-      @include no-dl;
-      dt {
-        font-size: 18px;
-        font-family: Cantarell, sans-serif;
-        text-align: justify;
-        a:hover { text-decoration: none; }
-      }
-      dd {
-        text-align: justify;
-        img {
-          margin: .5em 0;
-          @include rounded(5px);
-        }
-        a {
-          color: $red;
-        }
-        p {
-          margin: 0;
-          padding: 0;
-        }
-        font-size: 13px
-      }
-    }
-  }
-}
 
 @mixin box {
   @include rounded(5px);
@@ -352,6 +430,23 @@ div#content {
 
 .article {
   width: 450px !important;
+  .breadcrumbs {
+    margin-bottom: .5em;
+    a {
+      color: $blue;
+    }
+  }
+  h1 {
+    a {
+      &:hover {
+        color: $red;
+        text-decoration: none;
+      }
+    }
+  }
+  img {
+    max-width: 450px;
+  }
   .image {
     .large {
       background-color: #fff;
@@ -376,68 +471,56 @@ div#content {
   }
   .meta {
     margin-bottom: 1em;
-    .categories {
-      padding-top: .5em;
-      ul {
-        @include no-list;
-        li {
-          float: left;
-          a {
-            background-image: url(img/meta-tag.png);
-            background-repeat: no-repeat;
-            background-position: left middle;
-            color: $blue;
-            display: block;
-            padding-left: 16px;
-            margin-right: 1em;
-          }
+    ul {
+      @include no-list;
+      li {
+        float: left;
+        a,span {
+          background-repeat: no-repeat;
+          background-position: left middle;
+          display: block;
+          padding-left: 16px;
+          margin-right: 1em;
+        }
+        &.category a {
+          background-image: url(img/meta-tag.png);
+          color: $blue;
+        }
+        &.comments a {
+          background-image: url(img/meta-comments.png);
+          color: #6E8AA4;
+        }
+        &.likes a {
+          background-image: url(img/meta-likes.png);
+          color: #DF5442;
+        }
+        &.date span {
+          background-image: url(img/meta-date.png);
+          color: $green;
+        }
+        &.author a {
+          background-image: url(img/meta-author.png);
+          color: #A69B98;
         }
       }
     }
-    span {
-      background-repeat: no-repeat;
-      background-position: left middle;
-      float: left;
-      margin-right: 2em;
-      padding-left: 16px;
-    }
-    .comments {
-      background-image: url(img/meta-comments.png);
-      color: #6E8AA4;
-    }
-    .likes {
-      background-image: url(img/meta-likes.png);
-      color: #DF5442;
-    }
-    .date {
-      background-image: url(img/meta-date.png);
-      color: $green;
-    }
-    .author {
-      background-image: url(img/meta-author.png);
-      color: #A69B98;
-    }
   }
-  .specs {
-    background-color: rgba(255, 255, 255, .5);
-    padding: 1em;
-    width: $grid_3;
+  blockquote {
     @include rounded(5px);
-    dl {
-      @include no-dl;
-      dt {
-        font-weight: bold;
-      }
-      dd {
-        margin-bottom: .5em;
-      }
-    }
+    @include glow(#ccc, 5px, 0);
+    background-color: #fff;
+    margin: 0;
+    padding: 1em;
+    font-family: courier, monospace;
   }
-  .sources {
+  .best-sources {
     @include clearfix;
     border-top: 2px solid $blue;
     padding-top: 1em;
     margin-top: 2em;
+    ol {
+      padding-left: 1.5em;
+    }
     dl {
       @include no-dl;
       dt {
@@ -447,6 +530,34 @@ div#content {
         font-size: 12px;
         font-weight: bold;
         margin-bottom: 1.5em;
+      }
+    }
+  }
+}
+
+.specs {
+  strong {
+    display: block;
+  }
+}
+
+.leaderboard {
+  .reviews {
+    .bc_review {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #fff;
+      padding: 1.5em 0;
+      img {
+        @include rounded(5px);
+        @include glow(#ccc, 5px, 0);
+        width: 450px;
+      }
+      &:first-child {
+        border-top-width: 0;
+        padding-top: 0;
+      }
+      &:last-of-type {
+        border-bottom-width: 0 !important;
       }
     }
   }
@@ -523,7 +634,7 @@ div#comments {
 }
 
 div#social {
-  position: absolute;
+  position: fixed;
   height: 80px;
   top: 30px;
   left: 40px;

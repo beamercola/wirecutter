@@ -42,17 +42,21 @@
           <a href="/"><img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="The Wirecutter" id="logo" /></a>
           <dl class="slogan">
             <dt>An up-to-date List of the Greatest Gadgets</dt>
-            <dd><a href="#">How To Use This Site &raquo;</a></dd>
+            <dd><a href="/2011/10/how-to-use-the-wirecutter/">How To Use This Site &raquo;</a></dd>
           </dl>
-          <!--div id="search">
-              <form method="GET" action="/">
-              <input id="search-box" type="text" name="s" value=""/>
+          
+          <div class="search">
+            <form method="GET" action="/">
+              <input id="search-box" type="text" name="s" value="" />
               <input id="search-button" type="submit" value="Search"/>
-              </form>
-          </div-->
+              <div class="clear"></div>
+            </form>
+          </div>
+          
         </div>
       </div>
       <?php do_action('wcfn_welcomex'); ?>
+      
     </header>
     <div id="main" role="main">
       <div class="wrapper">

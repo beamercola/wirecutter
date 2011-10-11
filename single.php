@@ -7,8 +7,10 @@
     <h1 class="entry-title"><?php edit_post_link('Edit', '<span class="edit-link">[', ']</span>' ); ?><a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a></h1>
     
     <div class="meta">
-      <span class="date"><?php the_date('Y-m-d'); ?></span>
-      <span class="author"><?php echo get_the_author(); ?></span>
+      <ul>
+        <li class="date"><span><?php the_date('Y-m-d'); ?></span></li>
+        <li class="author"><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo get_the_author(); ?></a></li>
+      </ul>
       <div class="clear"></div>
     </div>
     
@@ -33,7 +35,6 @@
 </div>
 
 <div class="side grid_3 omega">
-  <?php get_sidebar('single'); ?>
 
   <div class="box related-categories">
     <h2>Read More</h2>
