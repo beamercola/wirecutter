@@ -24,7 +24,7 @@
     <dl>
       <dt><a href="/leaderboard/<?php echo $category->slug; ?>"><?php echo $category->name; ?></a></dt>
       <dd>
-        <a href="/leaderboard/<?php echo $category->slug; ?>"><img src="http://placehold.it/200x75/ffffff" /></a>
+        <a href="/leaderboard/<?php echo $category->slug; ?>"><img src="<?php echo esc_url( wchomecats_imgsrc( $category->term_id ) ) ?>" /></a>
         <ul>
 <?php
         $wp_query = null;
@@ -44,7 +44,7 @@
               'operator' => 'NOT IN',
             )
           ),
-          'posts_per_page' => '3',
+          'posts_per_page' => '4',
           'meta_key'=> $prefix.'order',
           'orderby'=> 'meta_value',
           'order'=>'ASC',
@@ -53,16 +53,35 @@
         
         $wp_query->query($args);
 		    
+		    $i = 0;
         while( $wp_query->have_posts() ) {
+          $i++;
           $wp_query->the_post();
           if( get_post_meta($post->ID, $prefix.'short_title') ) {
             $homeTitle = get_post_meta( $post->ID, $prefix.'short_title', true );
           } else {
             $homeTitle = $post->post_title;
           }
+          if($i < 4) {
 ?>
-            <li><a class="li" href="<?php echo the_permalink(); ?>"><?php echo $homeTitle; ?></a></li>
-<?php } ?>
+            <li>
+              <a class="title" href="<?php echo the_permalink(); ?>">
+                <?php echo $homeTitle; ?>
+                <?php if( get_post_meta($post->ID, $prefix.'sub_title') ) { ?>
+                <div class="product"><?php echo get_post_meta($post->ID, $prefix.'sub_title', true) ?></div>
+                <?php } ?>
+              </a>
+            </li>
+<?php
+} else {
+  ?>
+            <li class="more">
+              <a href="/leaderboard/<?php echo $category->slug; ?>">More in <?php echo $category->name; ?>...</a>
+            </li>
+<?php
+  }
+}
+?>
           </ul>
         </dd>
       </dl>

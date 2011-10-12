@@ -564,3 +564,287 @@ function wcspecs_save_post( $post_id ) {
 }
 add_action( 'save_post', 'wcspecs_save_post' );
 
+
+
+
+/*
+ * 
+ * Homepage Thumbnail Helper
+ * 
+ * http://thewirecutter.com/wp/wp-admin/admin.php?page=hpc/hpc.php
+ * 
+ * Upload 200x75 thumbnails for the homepage categories
+ * 
+ * 
+ * Additional Image Sizes Plugin used to setup 200x75 thumbnail size
+ * See: http://thewirecutter.com/wp/wp-admin/upload.php?page=ais_admin
+ * 
+ * 
+ * Return img SRC for a category by $category->term_id
+ * 
+ * Use it like this: <img src="<?php echo esc_url( wchomecats_imgsrc( $category->term_id ) ) ?>" />
+ * 
+ */
+function wchomecats_imgsrc( $term_id ) {
+    $wchomecatimgs = get_option( 'wchomecats_images', array() );
+    if( array_key_exists($term_id, $wchomecatimgs) ) {
+        if( $wchomecatimgs[$term_id] ) {
+            return $wchomecatimgs[$term_id];
+        }
+    }
+    return 'http://placehold.it/200x75/ffffff';
+}
+
+/*
+ * Add to Admin Menu
+ */
+function wchomecats_admin_menu() {
+    add_menu_page( 'Homepage Cats',
+        'Homepage Cats',
+        'manage_options',
+        'wchomecats_settings',
+        'wchomecats_settings_page' 
+    );
+}
+add_action( 'admin_menu', 'wchomecats_admin_menu' );
+
+/*
+ * Include required scripts/css for WP image uploader
+ */
+function wchomecats_admin_enqueue_script( $hook ) {
+    if( $hook == 'toplevel_page_wchomecats_settings' ) {
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'media-upload' );
+        wp_enqueue_script( 'thickbox' );
+        wp_enqueue_style( 'thickbox' );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'wchomecats_admin_enqueue_script' );
+
+/*
+ * Draw the settings Page
+ * - grid of current homepage images
+ * - buttons to upload new images
+ */
+function wchomecats_settings_page() {
+    // update on POST
+    if( isset($_POST['wchomecats_image']) ) {
+        $images = $_POST['wchomecats_image'];
+        update_option( 'wchomecats_images', $images );
+    }
+?>
+    <form method="post">
+    <h2>Homepage Categories <input type="submit" value="Update" class="button-primary"/></h2>
+<?php
+    // get leaderboard categories in same order as homepage
+    $args = array(
+        'type'            => 'bc_review',
+        'orderby'         => 'count',
+        'parent'          => 0,
+        'order'           => 'DESC',
+        'hide_empty'      => 0,
+        'hierarchical'    => 0,
+        'taxonomy'        => 'bc_leaderboard',
+        'pad_counts'      => false
+    );
+    $categories = get_categories($args);
+    // set SRC for each category
+    foreach($categories as $category) {
+        $category->src = wchomecats_imgsrc( $category->term_id );
+    }
+?>
+    <table class="form-table">
+    <?php for($i=0; $i<count($categories); $i+=3): ?>
+    <tr valign="top">
+    <td><?php $category = $categories[$i]; ?>
+        <h3><?php echo $category->name ?></h3>
+        <img src="<?php echo esc_url($category->src) ?>"/>
+        <input type="text" name="wchomecats_image[<?php echo $category->term_id ?>]" value="<?php echo esc_url($category->src) ?>"/>
+        <input class="upload" type="button" value="Upload" class="button-secondary"/>
+    </td>
+    <td><?php if($i+1<count($categories)): $category = $categories[$i+1]; ?>
+        <h3><?php echo $category->name ?></h3>
+        <img src="<?php echo esc_url($category->src) ?>"/>
+        <input type="text" name="wchomecats_image[<?php echo $category->term_id ?>]" value="<?php echo esc_url($category->src) ?>"/>
+        <input class="upload" type="button" value="Upload" class="button-secondary"/>
+        <?php endif; ?>
+    </td>
+    <td><?php if($i+2<count($categories)): $category = $categories[$i+2]; ?>
+        <h3><?php echo $category->name ?></h3>
+        <img src="<?php echo esc_url($category->src) ?>"/>
+        <input type="text" name="wchomecats_image[<?php echo $category->term_id ?>]" value="<?php echo esc_url($category->src) ?>"/>
+        <input class="upload" type="button" value="Upload" class="button-secondary"/>
+        <?php endif; ?>
+    </td>
+    </tr>
+    <?php endfor; ?>
+    </table>
+    </form>
+    <style type="text/css">
+    .form-table td {border: 1px solid #555;}
+    .form-table td img {display:block; border: 1px solid #000;}
+    </style>
+    <script type="text/javascript">
+    // intercept WP Image Uploader results
+    jQuery(document).ready(function($) {
+        // target field
+        var wchomecat_field = null;
+        // open thickbox media uploader
+        $('.upload').click(function() {
+            $('html').addClass('Image');
+            formfield = $(this).prev('input').attr('name');
+            wchomecat_field = $(this).prev('input');
+            tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+            return false;
+        });
+        // thickbox INSERT INTO POST callback
+        window.original_send_to_editor = window.send_to_editor;
+        window.send_to_editor = function(html) {
+            var fileurl;
+            if(formfield != null) {
+                fileurl = $(html).attr('src');
+                wchomecat_field.val(fileurl);
+                wchomecat_field.prev('img').attr('src', fileurl);
+                tb_remove();
+                $('html').removeClass('Image');
+                formfield = null;
+                wchomecat_field = null;
+            } else {
+                window.original_send_to_editor(html);
+            }
+        };
+    });
+    </script>
+<?php
+}
+
+
+
+/*
+ * 
+ * Alternative method - manage from Leaderboard Taxonomy page
+ * 
+ * 
+ * Include required scripts/css for WP image uploader
+ */
+function wchomecats_admin_enqueue_script2( $hook ) {
+    if( $hook == 'edit-tags.php' && $_GET['taxonomy'] == 'bc_leaderboard' ) {
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'media-upload' );
+        wp_enqueue_script( 'thickbox' );
+        wp_enqueue_style( 'thickbox' );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'wchomecats_admin_enqueue_script2' );
+
+/*
+ * Categories List
+ */
+function wchomecats_add_form_fields() {
+    $wchomecats_default_img = 'http://placehold.it/200x75/ffffff';
+?>
+    <div class="form-field">
+        <label for="tag-thumbnail">Thumbnail</label>
+            <img id="wchomecats_image" src="<?php echo $wchomecats_default_img ?>"/>
+            <input id="wchomecats_upload" class="button-secondary" type="button" value="Upload"/>
+            <br clear="all">
+            <input id="wchomecats_input" type="text" name="wchomecats_image" value="<?php echo $wchomecats_default_img ?>"/>
+    </div>
+    <?php wchomecats_script(); ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#submit').click(function() {
+           $('#wchomecats_image').attr('src', '<?php echo $wchomecats_default_img ?>');
+           return false; 
+        });
+    });
+    </script>
+<?php 
+}
+add_action('bc_leaderboard_add_form_fields', 'wchomecats_add_form_fields');
+
+/*
+ * Category Single
+ */
+function wchomecats_edit_form_fields() {
+    $category = get_term($_GET['tag_ID'], 'bc_leaderboard');
+    $category->src = wchomecats_imgsrc( $category->term_id );
+?>
+    <tr class="form-field">
+        <th scope="row" valign="top"><label for="thumbnail">Thumbnail</label></th>
+        <td>
+            <img id="wchomecats_image" src="<?php echo esc_url($category->src) ?>"/>
+            <input id="wchomecats_upload" class="button-secondary" type="button" value="Upload"/>
+            <br clear="all">
+            <input id="wchomecats_input" type="text" name="wchomecats_image" value="<?php echo esc_url($category->src) ?>"/>
+        </td>
+    </tr>
+    <?php wchomecats_script(); ?>
+<?php
+}
+add_action('bc_leaderboard_edit_form_fields', 'wchomecats_edit_form_fields');
+
+function wchomecats_script() {
+?>
+    <style type="text/css">
+        #wchomecats_image {float: left; width: 200px !important; height: 75px !important; border: 1px solid #555;}
+        #wchomecats_upload {float: left; width: 50px !important;}
+        #wchomecats_input {clear: left; width: 400px !important;}
+    </style>
+    <script type="text/javascript">
+    // intercept WP Image Uploader results
+    jQuery(document).ready(function($) {
+        // target field
+        var wchomecat_field = null;
+        // open thickbox media uploader
+        $('#wchomecats_upload').click(function() {
+            $('html').addClass('Image');
+            formfield = $('#wchomecats_input').attr('name');
+            wchomecat_field = $('#wchomecats_input');
+            tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+            return false;
+        });
+        // thickbox INSERT INTO POST callback
+        window.original_send_to_editor = window.send_to_editor;
+        window.send_to_editor = function(html) {
+            var fileurl;
+            if(formfield != null) {
+                fileurl = $(html).attr('src');
+                wchomecat_field.val(fileurl);
+                formfield = $('#wchomecats_image').attr('src', fileurl);
+                tb_remove();
+                $('html').removeClass('Image');
+                formfield = null;
+                wchomecat_field = null;
+            } else {
+                window.original_send_to_editor(html);
+            }
+        };
+    });
+    </script>
+<?php
+}
+
+function bc_leaderboard_update_term( $term_id, $tt_id, $taxonomy ) {
+    if( ! isset( $_POST['taxonomy'] ) ) {
+        return;
+    }
+    if( $_POST['taxonomy'] != 'bc_leaderboard' ) {
+        return;
+    }
+    $wchomecats_images = get_option( 'wchomecats_images', array() );
+    $wchomecats_images[$term_id] = $_POST['wchomecats_image'];
+    update_option('wchomecats_images', $wchomecats_images);
+}
+add_action('created_term',  'bc_leaderboard_update_term' , '', 3 );
+add_action('edit_term',  'bc_leaderboard_update_term' , '', 3 );
+
+
+/*
+ * END Homepage Thumbnail Helper
+ */
+
+
+/*
+ * END Homepage Thumbnail Helper
+ */

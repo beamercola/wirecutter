@@ -7,15 +7,13 @@
 </div> <!-- main -->
 <div class="clear"></div>
 
-<div class="ad"><?php do_action('wcfn_openx', '728'); ?></div>
-
 <footer>
   <div class="wrapper">
     <div class="grid_5">
     <p class="about">The Wirecutter is an up-to-date list of the best gadgets.</p>
     <p class="by">By <a href="/author/blam8/">Brian Lam</a> and <a href="/authors">Friends</a></p>
     </div>
-    <div class="grid_4">
+    <div class="grid_5">
       <p class="contact">
         <a href="mailto:notes@thewirecutter.com">Contact</a>
         <a href="/about">About</a>
@@ -23,7 +21,7 @@
         <a href="mailto:advertise@thewirecutter.com">Advertising</a>
       </p>
       <p class="awl">
-        Part of the Awl Family:
+        Part of the Awl Family:<br />
         <a href="http://www.theawl.com">The Awl</a>,
         <a href="http://splitsider.com">Splitsider</a> and 
         <a href="http://thehairpin.com">The Hairpin</a>

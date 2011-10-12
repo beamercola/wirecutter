@@ -54,7 +54,7 @@
             </form>
           </div>
           
-          <img src="<?php echo get_template_directory_uri(); ?>/img/intel.png" class="sponsor" />
+          <a href="http://ad.doubleclick.net/clk;246498667;71659097;j;pc=[TPAS_ID]" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/intel.png" class="sponsor" /></a>
           
         </div>
       </div>

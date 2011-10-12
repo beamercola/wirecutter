@@ -107,7 +107,7 @@ header {
     .search {
       position: absolute;
       top: 80px;
-      right: 30px;
+      right: 0;
       input[type="text"] {
         @include rounded(5px);
         @include glow(#ccc, 5px, 0);
@@ -136,7 +136,7 @@ header {
     .sponsor {
       position: absolute;
       top: 40px;
-      right: 30px;
+      right: 0;
     }
   }
 }
@@ -299,14 +299,6 @@ ul.leaderboard {
     @include grid($grid_3);
     margin-bottom: 1em;
     width: 200px;
-    ul {
-      @include no-list;
-      li {
-        @include alpha;
-        @include omega;
-        margin: 0;
-      }
-    }
     &.laptops         dt { background-image: url(img/icons/laptops.png); }
     &.smartphones     dt { background-image: url(img/icons/smartphones.png); }
     &.cell-phones     dt { background-image: url(img/icons/cell-phones.png); }
@@ -314,17 +306,28 @@ ul.leaderboard {
     &.cameras         dt { background-image: url(img/icons/cameras.png); }
     &.tvs             dt { background-image: url(img/icons/tvs.png); }
     &.personal-audio  dt { background-image: url(img/icons/personal-audio.png); }
-    &.home-theater    dt { background-image: url(img/icons/home-theater.png); }
+    &.home-theater-audio dt { background-image: url(img/icons/home-theater.png); font-size: 14px !important; }
     &.networking      dt { background-image: url(img/icons/networking.png); }
     &.storage         dt { background-image: url(img/icons/storage.png); }
     &.cables          dt { background-image: url(img/icons/cables.png); }
     &.e-book-readers  dt { background-image: url(img/icons/e-book-readers.png); }
     &.tvs dt { text-transform: none; }
+    &:nth-child(3n) {
+      clear: right;
+    }
+    &:nth-child(3n+1) {
+      clear: left;
+    }
     dl {
       @include no-dl;
       dt {
-        a { display: block; }
-        a:hover { text-decoration: none; }
+        a {
+          display: block;
+          &:hover {
+            color: $red;
+            text-decoration: none;
+          }
+        }
         font-family: Cantarell, sans-serif;
         font-size: 18px;
         text-transform: uppercase;
@@ -344,12 +347,41 @@ ul.leaderboard {
             @include glow(#ccc, 5px, 0);
           }
         }
-        a {
-          display: block;
-          font-size: 11px;
-          text-transform: uppercase;
-          text-shadow: #fff 0 1px 0;
-          padding-bottom: .5em;
+        ul {
+          margin: 0 0 0 1.5em;
+          padding: 0;
+          list-style-image: url(./img/triangle.png);
+          list-style-position: outside;
+          li {
+            @include alpha;
+            @include omega;
+            clear: none;
+            display: list-item;
+            float: none;
+            margin: 0;
+            padding: 0 0 .5em 0;
+            width: 180px;
+            a {
+              display: block;
+              font-size: 11px;
+              text-transform: uppercase;
+              text-shadow: #fff 0 1px 0;
+              .product {
+                color: #B0AEA7;
+              }
+              &:hover {
+                color: $red;
+                text-decoration: none;
+                .product {
+                  color: $red;
+                }
+              }
+            }
+            &.more {
+              list-style-type: none !important;
+              list-style-image: none !important;
+            }
+          }
         }
       }
     }
@@ -438,6 +470,22 @@ div#content {
   }
 }
 
+.image {
+  .large {
+    @include rounded(5px);
+    @include glow(#ccc, 5px, 0);
+    background-color: #fff;
+    margin: 1em 0;
+    text-align: center;
+    width: 670px;
+    @include rounded(5px);
+    img {
+      max-width: 640px;
+    }
+  }
+}
+
+
 .article {
   width: 450px !important;
   .breadcrumbs {
@@ -447,6 +495,7 @@ div#content {
     }
   }
   h1 {
+    margin-bottom: 0;
     a {
       &:hover {
         color: $red;
@@ -454,32 +503,13 @@ div#content {
       }
     }
   }
+  h2 {
+    color: $red;
+    font-size: 18px;
+    margin-bottom: 1em;
+  }
   img {
     max-width: 450px;
-  }
-  .image {
-    img {
-      @include rounded(5px);
-      @include glow(#ccc, 5px, 0);
-    }
-    .large {
-      background-color: #fff;
-      margin: 1em 0;
-      text-align: center;
-      width: 450px;
-      @include rounded(5px);
-      img {
-        max-width: 450px;
-      }
-    }
-    ul {
-      @include no-list;
-      li {
-        background-color: #fff;
-        float: left;
-        margin-right: 10px;
-      }
-    }
   }
   .meta {
     margin-bottom: 1em;
@@ -524,6 +554,16 @@ div#content {
     margin: 0;
     padding: 1em;
     font-family: courier, monospace;
+  }
+  .entry-content,
+  .best-sources {
+    a {
+      color: $red;
+      text-decoration: underline;
+      &:visited {
+        color: $dark_brown;
+      }
+    }
   }
   .best-sources {
     @include clearfix;
@@ -626,10 +666,6 @@ div#comments {
       width: 100%;
     }
   }
-}
-
-.edit-link {
-  display: none;
 }
 
 .line {

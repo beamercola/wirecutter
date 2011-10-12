@@ -2,6 +2,7 @@
 <?php 
   global $post;
   global $wpdb;
+  global $prefix;
 
   $term_object = wp_get_object_terms(  $post->ID, 'bc_leaderboard');
   $badges = wp_get_object_terms(  $post->ID, 'bc_badges'); 
@@ -10,6 +11,18 @@
   $price = get_post_meta($post->ID, 'bc_price');
   $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID ));
 ?>
+
+<?php if(count($attachments) > 0): ?>
+<div class="image">
+  <div class="large">
+    <?php
+      $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450));
+      echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/>");
+    ?>
+  </div>
+</div>
+<?php endif; ?>
+
 
 <div class="grid_6 alpha article">
   
@@ -28,6 +41,7 @@
   
   <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <h1 class="entry-title"><?php edit_post_link('Edit', '<span class="edit-link">[', ']</span>' ); ?><a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a></h1>
+    <h2><?php echo get_post_meta($post->ID, $prefix.'sub_title', true); ?></h2>
     
     <div class="meta">
       <ul>
@@ -43,28 +57,6 @@
         <div class="clear"></div>
       </ul>
     </div>
-    
-    <?php if(count($attachments) > 0): ?>
-    <div class="image">
-      <div class="large">
-        <?php
-          $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450));
-          echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/>");
-        ?>
-      </div>
-      
-      <ul>
-        <?php
-          foreach ( $attachments as $attachment ):
-            $large = wp_get_attachment_image_src($attachment->ID, 'large');
-            $image_attributes = wp_get_attachment_image_src($attachment->ID, array(90,90));
-            echo("<li><a href='".$large[0]."'><img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/></a></li>");
-          endforeach;
-        ?>
-      </ul>
-      <div class="clear"></div>
-    </div>
-    <?php endif; ?>
     
     <div class="entry-content">
       <?php the_content(); ?>
@@ -89,6 +81,14 @@
 
 <div class="grid_2 side omega">
   <div class="right">
+    <div class="box specs">
+      <?php $key_specs = get_post_meta($post->ID, '_wcspecs', true); ?>
+      <?php if( $key_specs ): ?>
+        <h2>Key Specs</h2>
+        <?php echo $key_specs ?>
+      <?php endif; ?>
+    </div>
+    
     <div class="buy">
       <dl>
         <?php
@@ -114,14 +114,6 @@
       </dl>
     </div>
     
-    <div class="box specs">
-      <?php $key_specs = get_post_meta($post->ID, '_wcspecs', true); ?>
-      <?php if( $key_specs ): ?>
-        <h2>Key Specs</h2>
-        <?php echo $key_specs ?>
-      <?php endif; ?>
-    </div>
-    
     <div class="related-categories box">
       <h2>Read More</h2>
       <ul>
@@ -134,6 +126,26 @@
         <?php endif; ?>
       </ul>
     </div>
+    
+    <?php
+      $args = array(
+        'taxonomy'     => 'bc_leaderboard',
+        'orderby'      => 'name',
+        'show_count'   => 0,
+        'pad_counts'   => 1,
+        'hierarchical' => 1,
+        'title_li'     => 0,
+        'use_desc_for_title' => 0
+      );
+    ?>
+
+    <div class="box">
+      <h3>Other Categories</h3>
+      <ul class="categories">
+        <?php wp_list_categories( $args ); ?>
+      </ul>
+    </div>
+    
     
     <div class="social">
       <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical">Tweet</a>
