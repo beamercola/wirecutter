@@ -7,13 +7,14 @@
     <?php while ( have_posts() ): the_post(); ?>
     <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
       <h2 class="entry-title"><?php edit_post_link('Edit', '<span class="edit-link">[', ']</span>' ); ?><a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a></h2>
+      <h3><?php echo get_post_meta($post->ID, $prefix.'sub_title', true);?></h3>
       <?php
         // echo var_dump($post);
         $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID ));
         if(count($attachments) > 0) {
-          $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450));
-          echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/>");
-        }
+          $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450)); ?>
+          <a href="<?php echo the_permalink(); ?>"><img src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>" /></a>
+        <?php }
       ?>
       <div class="entry-content">
         <?php the_excerpt('[...]'); ?>

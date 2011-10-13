@@ -61,7 +61,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  height: 250px;
+  height: 230px;
   .wrapper {
     padding: 20px 40px;
     @include container_12;
@@ -77,14 +77,14 @@ header {
     position: relative;
     img#logo {
       position: absolute;
-      top: 47px;
+      top: 27px;
       left: 0;
     }
     .slogan {
       @include no-dl;
       position: absolute;
       left: 325px;
-      top: 39px;
+      top: 19px;
       width: 300px;
       dt {
         color: $blue;
@@ -106,7 +106,7 @@ header {
     }
     .search {
       position: absolute;
-      top: 80px;
+      top: 60px;
       right: 0;
       input[type="text"] {
         @include rounded(5px);
@@ -135,7 +135,7 @@ header {
     }
     .sponsor {
       position: absolute;
-      top: 40px;
+      top: 10px;
       right: 0;
     }
   }
@@ -143,7 +143,13 @@ header {
 
 footer {
   background-color: #222;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#111));
+  background: -webkit-linear-gradient(top, #333, #111);
+  background: -moz-linear-gradient(top, #2F2727, #1a82f7);
+  background: -ms-linear-gradient(top, #2F2727, #1a82f7);
+  border-top: 1px solid #000;
   margin-top: 2em;
+  text-shadow: 0 1px 0 #000;
   .wrapper {
     color: #fff;
     padding: 20px 40px;
@@ -175,7 +181,7 @@ div#main {
   box-shadow: 0px -4px 5px rgba(0, 0, 0, .1);
   -webkit-box-shadow: 0px -4px 5px rgba(0, 0, 0, .1);
   color: $dark_brown;
-  margin-top: 250px;
+  margin-top: 230px;
   position: relative;
   z-index: 2;
   text-shadow: #fff 0 1px 0;
@@ -300,17 +306,22 @@ ul.leaderboard {
     margin-bottom: 1em;
     width: 200px;
     &.laptops         dt { background-image: url(img/icons/laptops.png); }
-    &.smartphones     dt { background-image: url(img/icons/smartphones.png); }
-    &.cell-phones     dt { background-image: url(img/icons/cell-phones.png); }
+    &.smartphones     dt { background-image: url(img/icons/smartphones.png); padding-left: 25px; }
+    &.cell-phones     dt { background-image: url(img/icons/cell-phones.png); padding-left: 25px; }
     &.tablets         dt { background-image: url(img/icons/tablets.png); }
     &.cameras         dt { background-image: url(img/icons/cameras.png); }
     &.tvs             dt { background-image: url(img/icons/tvs.png); }
-    &.personal-audio  dt { background-image: url(img/icons/personal-audio.png); }
-    &.home-theater-audio dt { background-image: url(img/icons/home-theater.png); font-size: 14px !important; }
+    &.personal-audio  dt { background-image: url(img/icons/personal-audio.png); font-size: 16px !important; padding-left: 25px; }
+    &.receivers       dt { background-image: url(img/icons/personal-audio.png); font-size: 16px !important; padding-left: 25px; }
+    &.home-theater-audio dt { background-image: url(img/icons/home-theater.png); font-size: 14px !important; padding-left: 28px; }
     &.networking      dt { background-image: url(img/icons/networking.png); }
-    &.storage         dt { background-image: url(img/icons/storage.png); }
+    &.storage         dt { background-image: url(img/icons/storage.png); padding-left: 25px; }
     &.cables          dt { background-image: url(img/icons/cables.png); }
-    &.e-book-readers  dt { background-image: url(img/icons/e-book-readers.png); }
+    &.e-book-readers  dt { background-image: url(img/icons/e-book-readers.png); font-size: 16px !important; padding-left: 25px; }
+    &.headphones      dt { background-image: url(img/icons/headphones.png); }
+    &.ipod-dock       dt { background-image: url(img/icons/ipod.png); padding-left: 25px; }
+    &.wireless-music  dt { background-image: url(img/icons/wireless-music.png); }
+    &.soundbars       dt { background-image: url(img/icons/wireless-music.png); }
     &.tvs dt { text-transform: none; }
     &:nth-child(3n) {
       clear: right;
@@ -321,6 +332,13 @@ ul.leaderboard {
     dl {
       @include no-dl;
       dt {
+        font-family: Cantarell, sans-serif;
+        font-size: 18px;
+        text-transform: uppercase;
+        line-height: 30px;
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 35px;
         a {
           display: block;
           &:hover {
@@ -328,18 +346,12 @@ ul.leaderboard {
             text-decoration: none;
           }
         }
-        font-family: Cantarell, sans-serif;
-        font-size: 18px;
-        text-transform: uppercase;
-        line-height: 30px;
-        background-repeat: no-repeat;
-        background-position: right center;
       }
       dd {
         img {
           background-color: #fff;
           height: 75px;
-          margin: .5em 0;
+          margin: .5em 0 .75em 0;
           width: 200px;
           @include rounded(5px);
           @include glow(#EFE9D8, 5px, 0);
@@ -476,6 +488,7 @@ div#content {
     @include glow(#ccc, 5px, 0);
     background-color: #fff;
     margin: 1em 0;
+    padding: 1em 0;
     text-align: center;
     width: 670px;
     @include rounded(5px);
@@ -599,7 +612,20 @@ div#content {
       border-top: 1px solid #ddd;
       border-bottom: 1px solid #fff;
       padding: 1.5em 0;
+      a:hover {
+        color: $red;
+      }
+      h2 {
+        margin: 0;
+      }
+      h3 {
+        color: $red;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+      }
       img {
+        margin-top: 1em;
         @include rounded(5px);
         @include glow(#ccc, 5px, 0);
         width: 450px;

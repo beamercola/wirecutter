@@ -42,7 +42,7 @@
         <div class="content">
           <a href="/"><img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="The Wirecutter" id="logo" /></a>
           <dl class="slogan">
-            <dt>An up-to-date List of the Greatest Gadgets</dt>
+            <dt>A List of the<br />Greatest Gadgets</dt>
             <dd><a href="/2011/10/how-to-use-the-wirecutter/">How To Use This Site &raquo;</a></dd>
           </dl>
           

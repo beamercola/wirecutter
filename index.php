@@ -19,6 +19,32 @@
   $i = 0;
   foreach($leaderboard_categories as $category) {
     $i++;
+    $wp_query = null;
+    $wp_query = new WP_Query();
+    $args = array(
+      'tax_query' => array(
+        'relation' => 'AND',
+        array(
+          'taxonomy' => $prefix.'leaderboard',
+          'field' => 'slug',
+          'terms' => array($category -> slug),
+        ),
+        array(
+          'taxonomy' => 'category',
+          'field' => 'id',
+          'terms' => array(1),
+          'operator' => 'NOT IN',
+        )
+      ),
+      'posts_per_page' => '4',
+      'meta_key'=> $prefix.'order',
+      'orderby'=> 'meta_value',
+      'order'=>'ASC',
+      'post_type'=> $prefix.'review'
+    );
+    
+    $wp_query->query($args);
+    if($wp_query->have_posts()) {
 ?>
   <li class="<?php echo $category->slug ?>">
     <dl>
@@ -27,32 +53,6 @@
         <a href="/leaderboard/<?php echo $category->slug; ?>"><img src="<?php echo esc_url( wchomecats_imgsrc( $category->term_id ) ) ?>" /></a>
         <ul>
 <?php
-        $wp_query = null;
-        $wp_query = new WP_Query();
-        $args = array(
-          'tax_query' => array(
-            'relation' => 'AND',
-            array(
-              'taxonomy' => $prefix.'leaderboard',
-              'field' => 'slug',
-              'terms' => array($category -> slug),
-            ),
-            array(
-              'taxonomy' => 'category',
-              'field' => 'id',
-              'terms' => array(1),
-              'operator' => 'NOT IN',
-            )
-          ),
-          'posts_per_page' => '4',
-          'meta_key'=> $prefix.'order',
-          'orderby'=> 'meta_value',
-          'order'=>'ASC',
-          'post_type'=> $prefix.'review'
-        );
-        
-        $wp_query->query($args);
-		    
 		    $i = 0;
         while( $wp_query->have_posts() ) {
           $i++;
@@ -85,7 +85,10 @@
           </ul>
         </dd>
       </dl>
-<?php } ?>
+<?php
+  }
+}
+?>
     </ul>
   <div class="clear"></div>
 </div>

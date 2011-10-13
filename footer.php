@@ -10,7 +10,7 @@
 <footer>
   <div class="wrapper">
     <div class="grid_5">
-    <p class="about">The Wirecutter is an up-to-date list of the best gadgets.</p>
+    <p class="about">The Wirecutter is a list of the best gadgets.</p>
     <p class="by">By <a href="/author/blam8/">Brian Lam</a> and <a href="/authors">Friends</a></p>
     </div>
     <div class="grid_5">

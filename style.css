@@ -445,7 +445,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  height: 250px; }
+  height: 230px; }
   header .wrapper {
     padding: 20px 40px;
     width: 1020px; }
@@ -458,12 +458,12 @@ header {
     position: relative; }
     header .content img#logo {
       position: absolute;
-      top: 47px;
+      top: 27px;
       left: 0; }
     header .content .slogan {
       position: absolute;
       left: 325px;
-      top: 39px;
+      top: 19px;
       width: 300px; }
       header .content .slogan dt {
         font-weight: normal; }
@@ -485,7 +485,7 @@ header {
         text-shadow: #fff 0 1px 0; }
     header .content .search {
       position: absolute;
-      top: 80px;
+      top: 60px;
       right: 0; }
       header .content .search input[type="text"] {
         -webkit-border-radius: 5px;
@@ -517,12 +517,18 @@ header {
         text-shadow: #666666 0 -1px 0; }
     header .content .sponsor {
       position: absolute;
-      top: 40px;
+      top: 10px;
       right: 0; }
 
 footer {
   background-color: #222;
-  margin-top: 2em; }
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333333), to(#111111));
+  background: -webkit-linear-gradient(top, #333333, #111111);
+  background: -moz-linear-gradient(top, #2f2727, #1a82f7);
+  background: -ms-linear-gradient(top, #2f2727, #1a82f7);
+  border-top: 1px solid #000;
+  margin-top: 2em;
+  text-shadow: 0 1px 0 #000; }
   footer .wrapper {
     color: #fff;
     padding: 20px 40px; }
@@ -547,7 +553,7 @@ div#main {
   box-shadow: 0px -4px 5px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0px -4px 5px rgba(0, 0, 0, 0.1);
   color: #503d15;
-  margin-top: 250px;
+  margin-top: 230px;
   position: relative;
   z-index: 2;
   text-shadow: #fff 0 1px 0; }
@@ -677,9 +683,11 @@ ul.leaderboard {
     ul.leaderboard li.laptops dt {
       background-image: url(img/icons/laptops.png); }
     ul.leaderboard li.smartphones dt {
-      background-image: url(img/icons/smartphones.png); }
+      background-image: url(img/icons/smartphones.png);
+      padding-left: 25px; }
     ul.leaderboard li.cell-phones dt {
-      background-image: url(img/icons/cell-phones.png); }
+      background-image: url(img/icons/cell-phones.png);
+      padding-left: 25px; }
     ul.leaderboard li.tablets dt {
       background-image: url(img/icons/tablets.png); }
     ul.leaderboard li.cameras dt {
@@ -687,18 +695,37 @@ ul.leaderboard {
     ul.leaderboard li.tvs dt {
       background-image: url(img/icons/tvs.png); }
     ul.leaderboard li.personal-audio dt {
-      background-image: url(img/icons/personal-audio.png); }
+      background-image: url(img/icons/personal-audio.png);
+      font-size: 16px !important;
+      padding-left: 25px; }
+    ul.leaderboard li.receivers dt {
+      background-image: url(img/icons/personal-audio.png);
+      font-size: 16px !important;
+      padding-left: 25px; }
     ul.leaderboard li.home-theater-audio dt {
       background-image: url(img/icons/home-theater.png);
-      font-size: 14px !important; }
+      font-size: 14px !important;
+      padding-left: 28px; }
     ul.leaderboard li.networking dt {
       background-image: url(img/icons/networking.png); }
     ul.leaderboard li.storage dt {
-      background-image: url(img/icons/storage.png); }
+      background-image: url(img/icons/storage.png);
+      padding-left: 25px; }
     ul.leaderboard li.cables dt {
       background-image: url(img/icons/cables.png); }
     ul.leaderboard li.e-book-readers dt {
-      background-image: url(img/icons/e-book-readers.png); }
+      background-image: url(img/icons/e-book-readers.png);
+      font-size: 16px !important;
+      padding-left: 25px; }
+    ul.leaderboard li.headphones dt {
+      background-image: url(img/icons/headphones.png); }
+    ul.leaderboard li.ipod-dock dt {
+      background-image: url(img/icons/ipod.png);
+      padding-left: 25px; }
+    ul.leaderboard li.wireless-music dt {
+      background-image: url(img/icons/wireless-music.png); }
+    ul.leaderboard li.soundbars dt {
+      background-image: url(img/icons/wireless-music.png); }
     ul.leaderboard li.tvs dt {
       text-transform: none; }
     ul.leaderboard li:nth-child(3n) {
@@ -716,7 +743,8 @@ ul.leaderboard {
       text-transform: uppercase;
       line-height: 30px;
       background-repeat: no-repeat;
-      background-position: right center; }
+      background-position: left center;
+      padding-left: 35px; }
       ul.leaderboard li dl dt a {
         display: block; }
         ul.leaderboard li dl dt a:hover {
@@ -725,7 +753,7 @@ ul.leaderboard {
     ul.leaderboard li dl dd img {
       background-color: #fff;
       height: 75px;
-      margin: .5em 0;
+      margin: .5em 0 .75em 0;
       width: 200px;
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
@@ -847,6 +875,7 @@ div#content .side {
   -webkit-box-shadow: 0px 0 5px #cccccc;
   background-color: #fff;
   margin: 1em 0;
+  padding: 1em 0;
   text-align: center;
   width: 670px;
   -webkit-border-radius: 5px;
@@ -950,7 +979,17 @@ div#content .side {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #fff;
   padding: 1.5em 0; }
+  .leaderboard .reviews .bc_review a:hover {
+    color: #df5341; }
+  .leaderboard .reviews .bc_review h2 {
+    margin: 0; }
+  .leaderboard .reviews .bc_review h3 {
+    color: #df5341;
+    font-size: 14px;
+    margin: 0;
+    padding: 0; }
   .leaderboard .reviews .bc_review img {
+    margin-top: 1em;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -o-border-radius: 5px;
