@@ -51,6 +51,7 @@ h3 {
 
 body {
   background-color: #F8F5EA;
+  min-width: 1020px;
 }
 
 header {
@@ -63,11 +64,13 @@ header {
   width: 100%;
   height: 230px;
   .wrapper {
-    padding: 20px 40px;
+    padding: 20px 0;
     @include container_12;
+    position: relative;
   }
   .ad {
     margin: 0 auto;
+    min-height: 92px;
     img {
       border: 1px solid #fff;
     }
@@ -153,6 +156,7 @@ footer {
   .wrapper {
     color: #fff;
     padding: 20px 40px;
+    @include container_12;
     a {
       color: #fff;
       text-decoration: underline;
@@ -185,12 +189,14 @@ div#main {
   position: relative;
   z-index: 2;
   text-shadow: #fff 0 1px 0;
+  width: 100%;
   .wrapper {
     @include container_12;
     background-image: url(img/side_shadow.png);
     background-repeat: no-repeat;
     background-position: 690px 0;
-    margin: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
     div#content {
       @include grid($grid_9);
       @include alpha;
@@ -265,12 +271,14 @@ div#main {
                 font-family: Cantarell, sans-serif;
                 text-align: justify;
                 a:hover { text-decoration: none; }
+                margin-bottom: .5em
               }
               dd {
                 text-align: justify;
                 img {
-                  margin: .5em 0;
+                  margin-bottom: .5em;
                   @include rounded(5px);
+                  @include glow(#ccc, 5px, 0);
                 }
                 a {
                   color: $red;
@@ -625,6 +633,7 @@ div#content {
         padding: 0;
       }
       img {
+        background-color: #fff;
         margin-top: 1em;
         @include rounded(5px);
         @include glow(#ccc, 5px, 0);
@@ -708,10 +717,10 @@ div#comments {
 }
 
 div#social {
-  position: fixed;
+  position: absolute;
   height: 80px;
   top: 30px;
-  left: 40px;
+  left: 0;
   .snipsnip {
     color: #666;
     font-size: 11px;

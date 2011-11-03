@@ -21,7 +21,7 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/modernizr-2.0.6.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/facebox/facebox.js"></script>
@@ -57,6 +57,21 @@
           <a href="http://ad.doubleclick.net/clk;246498667;71659097;j;pc=[TPAS_ID]" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/intel.png" class="sponsor" /></a>
           
         </div>
+        
+        <div id="social">
+          <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical">Tweet</a>
+          <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+          <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));</script>
+          <div id="facebook" class="fb-like" data-href="<?php global $fburl; echo $fburl ?>" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false"></div>
+          <div class="snipsnip">#snipsnip</div>
+        </div>
+        
       </div>
       <?php do_action('wcfn_welcomex'); ?>
       

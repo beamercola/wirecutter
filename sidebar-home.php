@@ -26,7 +26,7 @@
           <dl>
             <dt><a href="<?php echo the_permalink();?>"><?php echo substr($post->post_title, 0); ?></a></dt>
             <dd>
-              <a href="<?php echo the_permalink();?>"><img src="http://placehold.it/300x100/38375F/B6A186" /></a>
+              <a href="<?php echo the_permalink();?>"><?php do_action('wcthumb300') ?></a>
               <?php echo get_the_excerpt(); ?>
             </dd>
           </dl>

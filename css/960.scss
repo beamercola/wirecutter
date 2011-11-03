@@ -19,6 +19,8 @@ $grid_11: 915px;
 $grid_12: 1000px;
 
 @mixin container_12 {
+  margin-left: auto;
+	margin-right: auto;
   width: 1020px;
 }
 	
