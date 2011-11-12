@@ -1,3 +1,4 @@
+<?php add_filter('the_permalink', 'ichaltpermalink_permalink'); ?>
 <div id="side">
   <div class="side-wrapper">
     <center><a href="/tech-as-magic/"><img src="<?php echo get_template_directory_uri(); ?>/img/tech_as_magic.png" alt="Tech As Magic" title="Tech As Magic" /></a></center>
@@ -6,12 +7,11 @@
       <ul class="blog">
         <?php
         $args = array(
-          'offset' => 1,
-          'showposts' => 4,
+          'offset' => 0,
+          'showposts' => 7,
           'post_type' => 'post',
           'post_status' => 'publish',
           'orderby' => 'date',
-          'post__not_in' => array(93),    // skip WELCOME post
         );
 
         $wp_query_bottom = null;
@@ -24,6 +24,7 @@
         ?>
         <li>
           <dl>
+            <?php do_action('wcsponsored_post_sidebar') ?> 
             <dt><a href="<?php echo the_permalink();?>"><?php echo substr($post->post_title, 0); ?></a></dt>
             <dd>
               <a href="<?php echo the_permalink();?>"><?php do_action('wcthumb300') ?></a>
@@ -49,3 +50,4 @@
   </div>
   <div class="clear"></div>
 </div><!-- #sidebar -->
+<?php remove_filter('the_permalink', 'ichaltpermalink_permalink'); ?>

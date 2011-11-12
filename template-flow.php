@@ -25,6 +25,7 @@ get_header(); ?>
     ?>
     <div class="flow_item">
       <h3><a href="<?php echo the_permalink();?>"><?php echo substr($post->post_title, 0); ?></a></h3>
+      <a href="<?php echo the_permalink();?>"><?php do_action('wcthumb300') ?></a>
       <p><?php echo get_the_excerpt(); ?></p>
     </div>
   
