@@ -20,6 +20,7 @@
 	?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/TheWirecutter" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -55,7 +56,7 @@
           </div>
           
           <a href="http://ad.doubleclick.net/clk;246498667;71659097;j;pc=[TPAS_ID]" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/intel.png" class="sponsor" /></a>
-          
+          <IMG SRC="http://ad.doubleclick.net/ad/N5364.federatedmedia.com/B5812614.15;sz=1x1;pc=[TPAS_ID];ord=[timestamp]?" BORDER=0 WIDTH=1 HEIGHT=1 ALT="">
         </div>
         
         <div id="social">
