@@ -259,8 +259,6 @@ td {
   zoom: 1; }
 
 /* ==|== media queries ====================================================== */
-@media only screen and (min-width: 480px) {}
-@media only screen and (min-width: 768px) {}
 /* ==|== print styles ======================================================= */
 @media print {
   * {
@@ -304,7 +302,6 @@ td {
 
   h2, h3 {
     page-break-after: avoid; } }
-
 /*
 	12 Column 960 Grid Sysytem as Sass Mixins
 	Based on 960 Grid System - http://960.gs/
@@ -732,6 +729,12 @@ ul.leaderboard {
       background-image: url(img/icons/e-book-readers.png);
       font-size: 16px !important;
       padding-left: 25px; }
+    ul.leaderboard li.blu-ray-player dt {
+      background-image: url(img/icons/blu-ray-player.png);
+      font-size: 16px !important;
+      padding-left: 25px; }
+    ul.leaderboard li.computer-accessories dt {
+      background-image: url(img/icons/desktops.png); }
     ul.leaderboard li.headphones dt {
       background-image: url(img/icons/headphones.png); }
     ul.leaderboard li.ipod-dock dt {
