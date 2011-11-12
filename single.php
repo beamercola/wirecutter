@@ -3,6 +3,9 @@
 <div class="article alpha grid_6">
   
   <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
+  
+  <?php do_action('wcsponsored_post_single') ?>
+  
   <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <h1 class="entry-title"><?php edit_post_link('Edit', '<span class="edit-link">[', ']</span>' ); ?><a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a></h1>
     

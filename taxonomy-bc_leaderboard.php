@@ -10,10 +10,10 @@
       <h3><?php echo get_post_meta($post->ID, $prefix.'sub_title', true);?></h3>
       <?php
         // echo var_dump($post);
-        $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID, 'order' => 'ASC' ));
+        $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'asc', 'post_status' => null, 'post_parent' => $post->ID ));
         if(count($attachments) > 0) {
           $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450)); ?>
-          <a href="<?php echo the_permalink(); ?>"><img src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>" /></a>
+          <a href="<?php echo the_permalink(); ?>"><img src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>"  /></a>
         <?php }
       ?>
       <div class="entry-content">
