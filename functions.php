@@ -5,7 +5,7 @@
  * set to FALSE to start the ads
  * (commenting this out will still show fake ads)
  */
-define('WC_TESTING', TRUE);
+define('WC_TESTING', FALSE);
 
 /*
  * Shorten excerpt length for homepage Flow sidebar 
@@ -88,7 +88,7 @@ add_filter('widget_text', 'wcfn_stupidquotes');
  */
 function wcfn_openx_head() { // prepare single page call
     if( ! WC_TESTING ) {
-        echo("<script type='text/javascript' src='http://ads2.theawl.com/openx/www/delivery/spcjs.php?id=6'></script>");
+        //echo("<script type='text/javascript' src='http://ads2.theawl.com/openx/www/delivery/spcjs.php?id=6'></script>\n");
     }
 }
 add_action( 'wp_head', 'wcfn_openx_head' );
@@ -104,6 +104,7 @@ function wcfn_openx_zone($zoneid, $n, $id) {
 }
 function wcfn_openx($slot) {
     if( ! WC_TESTING ) {
+        /*
         if($slot == '728' && is_home()) {
             echo wcfn_openx_zone(194,'603558a','ad728');
         } else if($slot == '728') {
@@ -117,6 +118,28 @@ function wcfn_openx($slot) {
         } else if($slot == '300b') {
             echo wcfn_openx_zone(198,'307c937','ad300b');
         }
+        */
+        if($slot == '728') { ?>
+            <div id="ad728"><div class="inner">
+            <!-- FM Leaderboard 1 Zone -->
+            <script type='text/javascript' src='http://static.fmpub.net/zone/6054'></script>
+            <!-- FM Leaderboard 1 Zone -->
+            </div></div>
+        <?php } else if($slot == '300a') { ?>
+            <div id="ad300a"><div class="inner">
+            <!-- FM Medium Rectangle 1 Zone -->
+            <script type='text/javascript' src='http://static.fmpub.net/zone/6055'></script>
+            <!-- FM Medium Rectangle 1 Zone -->
+            </div></div>
+        <?php } else if($slot == '300b') { ?>
+            <div id="ad300b"><div class="inner">
+            <!-- FM Medium Rectangle 2 Zone -->
+            <script type='text/javascript' src='http://static.fmpub.net/zone/6056'></script>
+            <!-- FM Medium Rectangle 2 Zone -->
+            </div></div>
+        <?php 
+        } //end if
+        
     } else {
         if($slot == '728') {
             echo('<div id="ad728"><div class="inner"><img src="'.get_template_directory_uri().'/tmp/top_ad.png"/></div></div>');
@@ -554,6 +577,8 @@ function wcspecs_meta_function( $post ) {
 
 // save _wcspecs as post meta
 function wcspecs_save_post( $post_id ) {
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+        return;
     // verify meta is present
     if( ! isset( $_POST['wcspecs_meta'] ) ) {
         return;
@@ -689,6 +714,7 @@ function wchomecats_settings_page() {
     jQuery(document).ready(function($) {
         // target field
         var wchomecat_field = null;
+        var formfield = null;
         // open thickbox media uploader
         $('.upload').click(function() {
             $('html').addClass('Image');
@@ -702,6 +728,8 @@ function wchomecats_settings_page() {
         window.send_to_editor = function(html) {
             var fileurl;
             if(formfield != null) {
+                html = "<div>"+html+"</div>";
+                html = $(html).find('img');
                 fileurl = $(html).attr('src');
                 wchomecat_field.val(fileurl);
                 wchomecat_field.prev('img').attr('src', fileurl);
@@ -796,6 +824,7 @@ function wchomecats_script() {
     jQuery(document).ready(function($) {
         // target field
         var wchomecat_field = null;
+        var formfield = null;
         // open thickbox media uploader
         $('#wchomecats_upload').click(function() {
             $('html').addClass('Image');
@@ -809,6 +838,8 @@ function wchomecats_script() {
         window.send_to_editor = function(html) {
             var fileurl;
             if(formfield != null) {
+                html = "<div>"+html+"</div>";
+                html = $(html).find('img');
                 fileurl = $(html).attr('src');
                 wchomecat_field.val(fileurl);
                 formfield = $('#wchomecats_image').attr('src', fileurl);
@@ -846,5 +877,310 @@ add_action('edit_term',  'bc_leaderboard_update_term' , '', 3 );
 
 
 /*
- * END Homepage Thumbnail Helper
+ * Add a meta box for "Recently Updated" to Reviews
+ * 
+ * In the loop:
+ * 
+ * <?php if(is_recently_updated()): echo ('NEW'); endif; ?>
+ * 
  */
+
+/*
+ * TRUE if the current post is marked Recently Updated
+ */
+function is_recently_updated() {
+    global $post;
+    $wcrecentlyupdated_meta = get_post_meta( $post->ID, '_wcrecentlyupdated', true);
+    return $wcrecentlyupdated_meta == 1;
+}
+
+/*
+ * Register meta box callback
+ */
+function wcrecentlyupdated_add_meta_boxes() {
+    add_meta_box( 'wcrecentlyupdated-meta', 'Recently Updated', 'wcrecentlyupdated_meta_function', 'bc_review', 'side');
+}
+add_action( 'add_meta_boxes', 'wcrecentlyupdated_add_meta_boxes' );
+
+/*
+ * Draw "Recently Update" meta box on Edit Review Screen
+ */
+function wcrecentlyupdated_meta_function( $post ) {
+    $wcrecentlyupdated_meta = get_post_meta( $post->ID, '_wcrecentlyupdated', true);
+?> 
+    <input type="checkbox" name="wcrecentlyupdated_meta" <?php echo checked( $wcrecentlyupdated_meta, 1 ) ?>/> Mark as <b>New</b> on Homepage?
+<?php
+}
+
+/*
+ * Save _wcrecentlyupdated in post meta
+ */
+function wcrecentlyupdated_save_post( $post_id ) {
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+        return;
+    // update or delete
+    $wcrecentlyupdated_meta = isset($_POST['wcrecentlyupdated_meta']) ? 1 : 0;
+    if( $wcrecentlyupdated_meta ) {
+        update_post_meta( $post_id, '_wcrecentlyupdated', 1 );
+    } else {
+        delete_post_meta( $post_id, '_wcrecentlyupdated' );
+    }
+}
+add_action( 'save_post', 'wcrecentlyupdated_save_post' );
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/*
+ * Add a meta box for "Thumb 300" to Posts
+ * 
+ * To output the <IMG SRC=""> tag, in the loop:
+ * 
+ * <?php wcthumb300() ?>
+ * 
+ */
+
+/*
+ * Output IMG tag, if any for this post
+ */
+function wcthumb300() {
+    global $post;
+    $wcthumb300_meta = get_post_meta( $post->ID, '_wcthumb300', true);
+    if( ! $wcthumb300_meta ) {
+        return;
+    }
+    echo '<img src="'.esc_url($wcthumb300_meta).'" width="300" height="100"/>';
+}
+add_action( 'wcthumb300', 'wcthumb300' );
+
+/*
+ * Register meta box callback
+ */
+function wcthumb300_add_meta_boxes() {
+    add_meta_box( 'wcthumb300-meta', 'Thumbnail 300', 'wcthumb300_meta_function', 'post', 'normal');
+}
+add_action( 'add_meta_boxes', 'wcthumb300_add_meta_boxes' );
+
+/*
+ * Draw "Thumbnail 300" meta box on Edit Review Screen
+ */
+function wcthumb300_meta_function( $post ) {
+    $wcthumb300_meta = get_post_meta( $post->ID, '_wcthumb300', true);
+    $imgsrc = $wcthumb300_meta ? $wcthumb300_meta : 'http://placehold.it/300x100/dddddd';
+?> 
+    <table class="form-table">
+    <tr>
+    <td valign="top">
+    <img id="wcthumb300_image" src="<?php echo esc_url($imgsrc) ?>"/>
+    </td>
+    <td valign="top">
+    <input id="wcthumb300_input" type="text" name="wcthumb300_meta" value="<?php echo esc_url($wcthumb300_meta) ?>"/>
+    <input id="wcthumb300_upload" class="button-secondary" type="button" value="Upload"/>
+    <p>Leave text field blank to have no sidebar image for this Post</p>
+    </td>
+    </tr>
+    </table>
+    <style type="text/css">
+    #wcthumb300_input {display: block; float: left; width: 250px !important; margin-right: 5px;}
+    </style>
+    <script type="text/javascript">
+    // intercept WP Image Uploader results
+    jQuery(document).ready(function($) {
+        // target field
+        var wcthumb300_field = null;
+        var formfield = null;
+        // open thickbox media uploader
+        $('#wcthumb300_upload').click(function() {
+            $('html').addClass('Image');
+            formfield = $('#wcthumb300_input').attr('name');
+            wchomecat_field = $('#wcthumb300_input');
+            tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+            return false;
+        });
+        // thickbox INSERT INTO POST callback
+        window.original_send_to_editor = window.send_to_editor;
+        window.send_to_editor = function(html) {
+            var fileurl;
+            if(formfield != null) {
+                html = "<div>"+html+"</div>";
+                html = $(html).find('img');
+                fileurl = $(html).attr('src');
+                wchomecat_field.val(fileurl);
+                formfield = $('#wcthumb300_image').attr('src', fileurl);
+                tb_remove();
+                $('html').removeClass('Image');
+                formfield = null;
+                wchomecat_field = null;
+            } else {
+                window.original_send_to_editor(html);
+            }
+        };
+    });
+    </script>
+    
+<?php
+}
+
+/*
+ * Save _wcthumb300 in post meta
+ */
+function wcthumb300_save_post( $post_id ) {
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+        return;
+    // update or delete
+    $wcthumb300_meta = $_POST['wcthumb300_meta'];
+    if( $wcthumb300_meta ) {
+        update_post_meta( $post_id, '_wcthumb300', $wcthumb300_meta );
+    } else {
+        delete_post_meta( $post_id, '_wcthumb300' );
+    }
+}
+add_action( 'save_post', 'wcthumb300_save_post' );
+
+
+
+
+
+
+
+/*
+ * 
+ * Sponsored Post
+ */
+
+/*
+ * Actions - Single and Sidebar
+ */
+add_action( 'wcsponsored_post_sidebar', 'wcsponsored_post_sidebar' );
+function wcsponsored_post_sidebar() {
+    global $post;
+    $sponsored = get_post_meta( $post->ID, '_wcsponsored', true);
+    if( $sponsored ) {
+?>
+    <dd id="sponsored-sidebar">Sponsored Post</dd>
+<?php
+    }
+}
+
+add_action( 'wcsponsored_post_single', 'wcsponsored_post_single' );
+function wcsponsored_post_single() {
+    global $post;
+    $sponsored = get_post_meta( $post->ID, '_wcsponsored', true);
+    if( $sponsored ) {
+?>
+    <div id="sponsored-single" class="box">Sponsored Post by <img src="<?php echo get_template_directory_uri() ?>/img/intelw.png"/></div>
+<?php
+    }
+}
+
+/*
+ * Register meta box callback
+ */
+function wcfnsponsored_add_meta_boxes() {
+    add_meta_box( 'wcfnsponsored-meta', 'Sponsored Post', 'wcfnsponsored_meta_function', 'post', 'side');
+}
+add_action( 'add_meta_boxes', 'wcfnsponsored_add_meta_boxes' );
+
+/*
+ * Draw "sponsored" meta box on Edit Post Screen
+ */
+function wcfnsponsored_meta_function( $post ) {
+    $sponsored = get_post_meta( $post->ID, '_wcsponsored', true);
+?> 
+    <input type="checkbox" name="wcsponsored" <?php echo checked( $sponsored, 1 ) ?>/> Is Sponsored?
+<?php
+}
+
+/*
+ * Save _wcfnsponsored in post meta
+ */
+function wcsponsored_save_post( $post_id ) {
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+        return;
+    // update or delete
+    $sponsored = isset($_POST['wcsponsored']) ? 1 : 0;
+    if( $sponsored ) {
+        update_post_meta( $post_id, '_wcsponsored', 1 );
+    } else {
+        delete_post_meta( $post_id, '_wcsponsored' );
+    }
+}
+add_action( 'save_post', 'wcsponsored_save_post' );
+
+
+/*
+ * Remove "height" from IMG tags (happens after inserting with image editor, not on display)
+ */
+function wcfn_image_tag( $html, $id, $alt, $title ) {
+    return preg_replace('/\s+height="\d+"/i', '', $html);
+}
+add_filter('get_image_tag', 'wcfn_image_tag', 0, 4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * Register meta box callback below post body
+ */
+function ichaltpermalink_add_meta_boxes() {
+    add_meta_box( 'ichaltpermalink-meta', 'Alternate Permalink', 'ichaltpermalink_meta_function', 'post', 'normal');
+}
+add_action( 'add_meta_boxes', 'ichaltpermalink_add_meta_boxes' );
+
+/*
+ * Draw "Alternative Permalink" meta box on Edit Post under body text
+ */
+function ichaltpermalink_meta_function( $post ) {
+    $ichaltpermalink_url = get_post_meta( $post->ID, '_ichaltpermalink_url', true);
+?> 
+    <input id="ichaltpermalink_url" type="text" name="ichaltpermalink_url" value="<?php echo esc_attr( $ichaltpermalink_url ) ?>"/>
+    <p>Specify an alternate Permalink URL to use in Sidebar</p>
+    <style type="text/css">
+    #ichaltpermalink_url {
+        display: block;
+        width: 600px;
+    }
+    </style>
+<?php
+}
+
+/*
+ * Save _ichaltpermalink_url in post meta
+ */
+function ichaltpermalink_save_post( $post_id ) {
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+        return;
+    
+    // update or delete "alternate permalink"
+    $ichaltpermalink_url = $_POST['ichaltpermalink_url'];
+    if( $ichaltpermalink_url ) {
+        update_post_meta( $post_id, '_ichaltpermalink_url', $ichaltpermalink_url );
+    } else {
+        delete_post_meta( $post_id, '_ichaltpermalink_url' );
+    }
+}
+add_action( 'save_post', 'ichaltpermalink_save_post' );
+
+/*
+ * Filter get_permalink with _ichaltpermalink_url
+ */
+function ichaltpermalink_permalink( $url ) {
+    global $post;
+    $ichaltpermalink_url = get_post_meta( $post->ID, '_ichaltpermalink_url', true);
+    if( $ichaltpermalink_url ) {
+        return $ichaltpermalink_url;
+    }
+    return $url;
+}
