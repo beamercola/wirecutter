@@ -9,7 +9,7 @@
   $source_meta = get_post_meta($post->ID, 'bc_buy_sources');
   $sources = json_decode($source_meta[0], true);
   $price = get_post_meta($post->ID, 'bc_price');
-  $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID ));
+  $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'asc', 'post_status' => null, 'post_parent' => $post->ID ));
 ?>
 
 <?php if(count($attachments) > 0): ?>
@@ -17,7 +17,8 @@
   <div class="large">
     <?php
       $image_attributes = wp_get_attachment_image_src( $attachments[0]->ID, array(450,450));
-      echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/>");
+      //echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" height=\"".$image_attributes[2]."\"/>");
+      echo("<img src=\"".$image_attributes[0]."\" width=\"".$image_attributes[1]."\" />");
     ?>
   </div>
 </div>
@@ -74,7 +75,7 @@
   
   <?php endwhile ?>
   
-	<?php // comments_template(); // Comments disabled on Reviews ?>
+	<?php  comments_template(); // Comments disabled on Reviews ?>
   <?php // get_sidebar('single-bc_review'); ?>
   <div class="clear"></div>
 </div>
