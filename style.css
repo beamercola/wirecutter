@@ -259,6 +259,8 @@ td {
   zoom: 1; }
 
 /* ==|== media queries ====================================================== */
+@media only screen and (min-width: 480px) {}
+@media only screen and (min-width: 768px) {}
 /* ==|== print styles ======================================================= */
 @media print {
   * {
@@ -302,6 +304,7 @@ td {
 
   h2, h3 {
     page-break-after: avoid; } }
+
 /*
 	12 Column 960 Grid Sysytem as Sass Mixins
 	Based on 960 Grid System - http://960.gs/
@@ -516,7 +519,7 @@ header {
         padding: 4px;
         font-size: 14px;
         width: 75px;
-        text-shadow: #666666 0 -1px 0; }
+        text-shadow: #666 0 -1px 0; }
     header .content .sponsor {
       position: absolute;
       top: 10px;
@@ -845,7 +848,7 @@ div#content .side {
       font-style: normal;
       padding: .5em;
       text-align: center;
-      text-shadow: black 0 -1px 0;
+      text-shadow: #000 0 -1px 0;
       font-size: 18px;
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
@@ -860,7 +863,7 @@ div#content .side {
       font-size: 14px;
       padding: .75em .5em;
       text-align: center;
-      text-shadow: #666666 0 -1px 0;
+      text-shadow: #666 0 -1px 0;
       border-top: 1px solid rgba(255, 255, 255, 0.95);
       border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
       div#content .side dl ul li a:hover {
@@ -902,93 +905,94 @@ div#content .side {
   .image .large img {
     max-width: 640px; }
 
-.article {
+.single-bc_review .article {
   width: 450px !important; }
-  .article .breadcrumbs {
-    margin-bottom: .5em; }
-    .article .breadcrumbs a {
-      color: #6d8aa4; }
-  .article h1 {
-    margin-bottom: 0; }
-    .article h1 a:hover {
-      color: #df5341;
-      text-decoration: none; }
-  .article h2 {
+
+.article .breadcrumbs {
+  margin-bottom: .5em; }
+  .article .breadcrumbs a {
+    color: #6d8aa4; }
+.article h1 {
+  margin-bottom: 0; }
+  .article h1 a:hover {
     color: #df5341;
-    font-size: 18px;
-    margin-bottom: 1em; }
-  .article img {
-    max-width: 450px; }
-  .article .meta {
-    margin-bottom: 1em; }
-    .article .meta ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0; }
-      .article .meta ul li {
-        float: left; }
-        .article .meta ul li a, .article .meta ul li span {
-          background-repeat: no-repeat;
-          background-position: left middle;
-          display: block;
-          padding-left: 16px;
-          margin-right: 1em; }
-        .article .meta ul li.category a {
-          background-image: url(img/meta-tag.png);
-          color: #6d8aa4; }
-        .article .meta ul li.comments a {
-          background-image: url(img/meta-comments.png);
-          color: #6E8AA4; }
-        .article .meta ul li.likes a {
-          background-image: url(img/meta-likes.png);
-          color: #DF5442; }
-        .article .meta ul li.date span {
-          background-image: url(img/meta-date.png);
-          color: #728057; }
-        .article .meta ul li.author a {
-          background-image: url(img/meta-author.png);
-          color: #A69B98; }
-  .article blockquote {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -o-border-radius: 5px;
-    box-shadow: 0px 0 5px #cccccc;
-    -webkit-box-shadow: 0px 0 5px #cccccc;
-    background-color: #fff;
+    text-decoration: none; }
+.article h2 {
+  color: #df5341;
+  font-size: 18px;
+  margin-bottom: 1em; }
+.article img {
+  max-width: 450px; }
+.article .meta {
+  margin-bottom: 1em; }
+  .article .meta ul {
+    list-style-type: none;
     margin: 0;
-    padding: 1em;
-    font-family: courier, monospace; }
-  .article .entry-content a,
-  .article .best-sources a {
-    color: #df5341;
-    text-decoration: underline; }
-    .article .entry-content a:visited,
-    .article .best-sources a:visited {
-      color: #503d15; }
-  .article .best-sources {
-    *display: inline-block;
-    border-top: 2px solid #6d8aa4;
-    padding-top: 1em;
-    margin-top: 2em; }
-    .article .best-sources:after {
-      content: " ";
-      display: block;
-      height: 0;
-      clear: both;
-      visibility: hidden; }
-    .article .best-sources ol {
-      padding-left: 1.5em; }
-    .article .best-sources dl dt {
-      font-weight: normal; }
-    .article .best-sources dl dd {
-      margin: 0;
-      padding: 0; }
-    .article .best-sources dl dt {
-      font-style: italic; }
-    .article .best-sources dl dd {
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 1.5em; }
+    padding: 0; }
+    .article .meta ul li {
+      float: left; }
+      .article .meta ul li a, .article .meta ul li span {
+        background-repeat: no-repeat;
+        background-position: left middle;
+        display: block;
+        padding-left: 16px;
+        margin-right: 1em; }
+      .article .meta ul li.category a {
+        background-image: url(img/meta-tag.png);
+        color: #6d8aa4; }
+      .article .meta ul li.comments a {
+        background-image: url(img/meta-comments.png);
+        color: #6E8AA4; }
+      .article .meta ul li.likes a {
+        background-image: url(img/meta-likes.png);
+        color: #DF5442; }
+      .article .meta ul li.date span {
+        background-image: url(img/meta-date.png);
+        color: #728057; }
+      .article .meta ul li.author a {
+        background-image: url(img/meta-author.png);
+        color: #A69B98; }
+.article blockquote {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  box-shadow: 0px 0 5px #cccccc;
+  -webkit-box-shadow: 0px 0 5px #cccccc;
+  background-color: #fff;
+  margin: 0;
+  padding: 1em;
+  font-family: courier, monospace; }
+.article .entry-content a,
+.article .best-sources a {
+  color: #df5341;
+  text-decoration: underline; }
+  .article .entry-content a:visited,
+  .article .best-sources a:visited {
+    color: #503d15; }
+.article .best-sources {
+  *display: inline-block;
+  border-top: 2px solid #6d8aa4;
+  padding-top: 1em;
+  margin-top: 2em; }
+  .article .best-sources:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  .article .best-sources ol {
+    padding-left: 1.5em; }
+  .article .best-sources dl dt {
+    font-weight: normal; }
+  .article .best-sources dl dd {
+    margin: 0;
+    padding: 0; }
+  .article .best-sources dl dt {
+    font-style: italic; }
+  .article .best-sources dl dd {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 1.5em; }
 
 .specs strong {
   display: block; }

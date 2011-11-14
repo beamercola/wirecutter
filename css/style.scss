@@ -508,9 +508,13 @@ div#content {
   }
 }
 
+.single-bc_review {
+    .article {
+        width: 450px !important;
+    }
+}
 
 .article {
-  width: 450px !important;
   .breadcrumbs {
     margin-bottom: .5em;
     a {

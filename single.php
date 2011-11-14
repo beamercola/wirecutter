@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="article alpha grid_6">
+<div class="article alpha grid_8">
   
   <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
   
@@ -37,15 +37,7 @@
   <?php comments_template(); ?>
 </div>
 
-<div class="side grid_3 omega">
 
-  <div class="box related-categories">
-    <h2>Read More</h2>
-    <ul>
-      <li><a href="/">Back to Home</a></li>
-    </ul>
-  </div>
-</div>
 
 
 <?php get_footer(); ?>
