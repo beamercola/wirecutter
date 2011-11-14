@@ -25,7 +25,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/modernizr-2.0.6.min.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/facebox/facebox.js"></script>
 <link rel="stylesheet" type="text/css" media="all" href="<?php echo get_template_directory_uri(); ?>/js/facebox/facebox.css" />
 <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
 <?php wp_head(); ?>
@@ -43,7 +42,7 @@
         <div class="content">
           <a href="/"><img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="The Wirecutter" id="logo" /></a>
           <dl class="slogan">
-            <dt>A List of the<br />Greatest Gadgets</dt>
+            <dt>A List of Only<br />Great Technology</dt>
             <dd><a href="/2011/10/how-to-use-the-wirecutter/">How To Use This Site &raquo;</a></dd>
           </dl>
           
