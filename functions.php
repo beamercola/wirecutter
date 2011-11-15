@@ -1209,7 +1209,7 @@ function wchomeicons_inline_style( $term_id ) {
     $src = wchomeicons_imgsrc( $term_id );
     $css = wchomeicons_css( $term_id );
     
-    return "background: url($src) no-repeat; $css";
+    return "background-image: url($src) no-repeat; $css";
 }
 
 /*
