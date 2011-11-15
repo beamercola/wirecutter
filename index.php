@@ -48,7 +48,7 @@
 ?>
   <li class="<?php echo $category->slug ?>">
     <dl>
-      <dt><a href="/leaderboard/<?php echo $category->slug; ?>"><?php echo $category->name; ?></a></dt>
+      <dt style="<?php echo esc_attr( wchomeicons_inline_style( $category->term_id ) ) ?>" ><a href="/leaderboard/<?php echo $category->slug; ?>"><?php echo $category->name; ?></a></dt>
       <dd>
         <a href="/leaderboard/<?php echo $category->slug; ?>"><img src="<?php echo esc_url( wchomecats_imgsrc( $category->term_id ) ) ?>" /></a>
         <ul>

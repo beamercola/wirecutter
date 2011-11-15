@@ -1308,7 +1308,7 @@ add_action('bc_leaderboard_edit_form_fields', 'wchomeicons_edit_form_fields');
 function wchomeicons_script() {
 ?>
     <style type="text/css">
-        #wchomeicons_image {float: left;  border: 1px solid #555;}
+        #wchomeicons_image {float: left; max-width: 50px; border: 1px solid #555;}
         #wchomeicons_upload {float: left; width: 50px !important;}
         #wchomeicons_input {clear: left; width: 400px !important;}
         #wchomeicons_css {clear: left; width: 400px !important;}
