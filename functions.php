@@ -1184,3 +1184,190 @@ function ichaltpermalink_permalink( $url ) {
     }
     return $url;
 }
+
+
+
+
+
+
+/*
+ * 
+ * Manage Homepage Icons via Leaderboard Taxonomy page
+ * 
+ * http://thewirecutter.com/wp/wp-admin/edit-tags.php?taxonomy=bc_leaderboard&post_type=bc_review
+ * 
+ */
+
+
+/*
+ * Use this on the DT element, comme ca:
+ * 
+ * <dt style="<?php echo esc_attr( wchomeicons_inline_style( $category->term_id ) ) ?>" >
+ * 
+ */
+function wchomeicons_inline_style( $term_id ) {
+    $src = wchomeicons_imgsrc( $term_id );
+    $css = wchomeicons_css( $term_id );
+    
+    return "background: url($src) no-repeat; $css";
+}
+
+/*
+ * Returns URL of the icon
+ */
+function wchomeicons_imgsrc( $term_id ) {
+    $wchomeiconsimgs = get_option( 'wchomeicons_images', array() );
+    if( array_key_exists($term_id, $wchomeiconsimgs) ) {
+        if( $wchomeiconsimgs[$term_id] ) {
+            return $wchomeiconsimgs[$term_id];
+        }
+    }
+    return '';
+}
+
+/*
+ * Returns inline CSS for the icon
+ */
+function wchomeicons_css( $term_id ) {
+    $wchomeiconscss = get_option( 'wchomeicons_css', array() );
+    if( array_key_exists($term_id, $wchomeiconscss) ) {
+        if( $wchomeiconscss[$term_id] ) {
+            return $wchomeiconscss[$term_id];
+        }
+    }
+    return '';
+}
+ 
+/* 
+ * Include required scripts/css for WP image uploader
+ */
+function wchomeicons_admin_enqueue_script( $hook ) {
+    if( $hook == 'edit-tags.php' && $_GET['taxonomy'] == 'bc_leaderboard' ) {
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'media-upload' );
+        wp_enqueue_script( 'thickbox' );
+        wp_enqueue_style( 'thickbox' );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'wchomeicons_admin_enqueue_script' );
+
+/*
+ * Taxonomy Page
+ * http://thewirecutter.com.localhost/wp/wp-admin/edit-tags.php?taxonomy=bc_leaderboard&post_type=bc_review&message=3
+ */
+function wchomeicons_add_form_fields() {
+    $wchomeicons_default_img = 'http://placehold.it/26×21/ffffff';
+?>
+    <div class="form-field">
+        <label for="tag-icon">Icon</label>
+            <img id="wchomeicons_image" src="<?php echo $wchomeicons_default_img ?>"/>
+            <input id="wchomeicons_upload" class="button-secondary" type="button" value="Upload"/>
+            <br clear="all">
+            <input id="wchomeicons_input" type="text" name="wchomeicons_image" value="<?php echo $wchomeicons_default_img ?>"/>
+            <br clear="all">
+            <input id="wchomeicons_css" type="text" name="wchomeicons_css" value=""/>
+    </div>
+    <?php wchomeicons_script(); ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#submit').click(function() {
+           $('#wchomeicons_image').attr('src', '<?php echo $wchomeicons_default_img ?>');
+           return false; 
+        });
+    });
+    </script>
+<?php 
+}
+add_action('bc_leaderboard_add_form_fields', 'wchomeicons_add_form_fields');
+
+/*
+ * Taxonomy Edit Item
+ * http://thewirecutter.com.localhost/wp/wp-admin/edit-tags.php?action=edit&taxonomy=bc_leaderboard&tag_ID=6&post_type=bc_review
+ */
+function wchomeicons_edit_form_fields() {
+    $category = get_term($_GET['tag_ID'], 'bc_leaderboard');
+    $category->icon = wchomeicons_imgsrc( $category->term_id );
+    $category->css = wchomeicons_css( $category->term_id );
+?>
+    <tr class="form-field">
+        <th scope="row" valign="top"><label for="icon">Icon</label></th>
+        <td>
+            <img id="wchomeicons_image" src="<?php echo esc_url($category->icon) ?>"/>
+            <input id="wchomeicons_upload" class="button-secondary" type="button" value="Upload"/>
+            <br clear="all">
+            <input id="wchomeicons_input" type="text" name="wchomeicons_image" value="<?php echo esc_url($category->icon) ?>"/>
+            <br clear="all">
+            <input id="wchomeicons_css" type="text" name="wchomeicons_css" value="<?php echo esc_url($category->css) ?>"/>
+        </td>
+    </tr>
+    <?php wchomeicons_script(); ?>
+<?php
+}
+add_action('bc_leaderboard_edit_form_fields', 'wchomeicons_edit_form_fields');
+
+function wchomeicons_script() {
+?>
+    <style type="text/css">
+        #wchomeicons_image {float: left;  border: 1px solid #555;}
+        #wchomeicons_upload {float: left; width: 50px !important;}
+        #wchomeicons_input {clear: left; width: 400px !important;}
+        #wchomeicons_css {clear: left; width: 400px !important;}
+    </style>
+    <script type="text/javascript">
+    // intercept WP Image Uploader results
+    jQuery(document).ready(function($) {
+        // target field
+        var wchomeicon_field = null;
+        var formfield = null;
+        // open thickbox media uploader
+        $('#wchomeicons_upload').click(function() {
+            $('html').addClass('Image');
+            formfield = $('#wchomeicons_input').attr('name');
+            wchomeicon_field = $('#wchomeicons_input');
+            tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+            return false;
+        });
+        // thickbox INSERT INTO POST callback
+        window.original_send_to_editor = window.send_to_editor;
+        window.send_to_editor = function(html) {
+            var fileurl;
+            if(formfield != null) {
+                html = "<div>"+html+"</div>";
+                html = $(html).find('img');
+                fileurl = $(html).attr('src');
+                wchomeicon_field.val(fileurl);
+                formfield = $('#wchomeicons_image').attr('src', fileurl);
+                tb_remove();
+                $('html').removeClass('Image');
+                formfield = null;
+                wchomeicon_field = null;
+            } else {
+                window.original_send_to_editor(html);
+            }
+        };
+    });
+    </script>
+<?php
+}
+
+/*
+ * Intercept taxonomy update and save into wp_options table
+ */
+function bc_leaderboard_update_term2( $term_id, $tt_id, $taxonomy ) {
+    if( ! isset( $_POST['taxonomy'] ) ) {
+        return;
+    }
+    if( $_POST['taxonomy'] != 'bc_leaderboard' ) {
+        return;
+    }
+    // icon url
+    $wchomeicons_images = get_option( 'wchomeicons_images', array() );
+    $wchomeicons_images[$term_id] = $_POST['wchomeicons_image'];
+    update_option('wchomeicons_images', $wchomeicons_images);
+    // inline styles
+    $wchomeicons_css = get_option( 'wchomeicons_css', array() );
+    $wchomeicons_css[$term_id] = $_POST['wchomeicons_css'];
+    update_option('wchomeicons_css', $wchomeicons_css);
+}
+add_action('created_term',  'bc_leaderboard_update_term2' , '', 3 );
+add_action('edit_term',  'bc_leaderboard_update_term2' , '', 3 );
