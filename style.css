@@ -993,6 +993,17 @@ div#content .side {
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 1.5em; }
+.article img.alignleft {
+  display: inline;
+  float: left; }
+.article img.alignright {
+  display: inline;
+  float: right; }
+.article img.aligncenter {
+  clear: both;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
 
 .specs strong {
   display: block; }
