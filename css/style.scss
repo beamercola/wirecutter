@@ -612,6 +612,20 @@ div#content {
       }
     }
   }
+  img.alignleft {
+    display: inline;
+    float: left;
+  }
+  img.alignright {
+    display: inline;
+    float: right;
+  }
+  img.aligncenter {
+    clear: both;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .specs {
