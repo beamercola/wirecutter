@@ -598,6 +598,11 @@ div#main {
       min-height: 600px; }
       div#main .wrapper div#side #ad300b {
         margin-bottom: 2em; }
+      div#main .wrapper div#side #sponsored-sidebar {
+        padding: 10px 0;
+        font-weight: bold;
+        text-align: center;
+        background: url(img/sponsoredbg.png) no-repeat; }
       div#main .wrapper div#side .search input[type="text"] {
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
@@ -1004,6 +1009,12 @@ div#content .side {
   display: block;
   margin-left: auto;
   margin-right: auto; }
+.article #sponsored-single {
+  background: #555;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #fff;
+  text-align: center; }
 
 .specs strong {
   display: block; }

@@ -216,6 +216,12 @@ div#main {
       #ad300b {
         margin-bottom: 2em;
       }
+      #sponsored-sidebar {
+        padding: 10px 0;
+        font-weight: bold;
+        text-align: center;
+        background: url(img/sponsoredbg.png) no-repeat;
+      }
       .search {
         input[type="text"] {
           @include rounded(5px);
@@ -625,6 +631,13 @@ div#content {
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+  #sponsored-single {
+    background: #555; 
+    padding: 10px 0; 
+    font-size: 14px; 
+    color: #fff; 
+    text-align: center;
   }
 }
 
