@@ -259,8 +259,6 @@ td {
   zoom: 1; }
 
 /* ==|== media queries ====================================================== */
-@media only screen and (min-width: 480px) {}
-@media only screen and (min-width: 768px) {}
 /* ==|== print styles ======================================================= */
 @media print {
   * {
@@ -304,7 +302,6 @@ td {
 
   h2, h3 {
     page-break-after: avoid; } }
-
 /*
 	12 Column 960 Grid Sysytem as Sass Mixins
 	Based on 960 Grid System - http://960.gs/
@@ -519,7 +516,7 @@ header {
         padding: 4px;
         font-size: 14px;
         width: 75px;
-        text-shadow: #666 0 -1px 0; }
+        text-shadow: #666666 0 -1px 0; }
     header .content .sponsor {
       position: absolute;
       top: 10px;
@@ -853,7 +850,7 @@ div#content .side {
       font-style: normal;
       padding: .5em;
       text-align: center;
-      text-shadow: #000 0 -1px 0;
+      text-shadow: black 0 -1px 0;
       font-size: 18px;
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
@@ -868,7 +865,7 @@ div#content .side {
       font-size: 14px;
       padding: .75em .5em;
       text-align: center;
-      text-shadow: #666 0 -1px 0;
+      text-shadow: #666666 0 -1px 0;
       border-top: 1px solid rgba(255, 255, 255, 0.95);
       border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
       div#content .side dl ul li a:hover {
@@ -926,8 +923,6 @@ div#content .side {
   color: #df5341;
   font-size: 18px;
   margin-bottom: 1em; }
-.article img {
-  max-width: 450px; }
 .article .meta {
   margin-bottom: 1em; }
   .article .meta ul {
