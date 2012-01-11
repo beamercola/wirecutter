@@ -1371,3 +1371,40 @@ function bc_leaderboard_update_term2( $term_id, $tt_id, $taxonomy ) {
 }
 add_action('created_term',  'bc_leaderboard_update_term2' , '', 3 );
 add_action('edit_term',  'bc_leaderboard_update_term2' , '', 3 );
+
+
+
+
+/*
+ * Create a new post type = Guide
+ */
+
+//register review
+add_action( 'init', 'wcfn_add_post_type_guide' );
+function wcfn_add_post_type_guide() {
+	global $prefix;
+	register_post_type( 'wc_guide',
+		array(
+			'labels' => array(
+				'name' => __( 'Guides' ),
+				'singular_name' => __( 'Guide' ),
+				'add_new' => _('Add Guide'),
+				'search_items' => _('Search Guides'),
+				'all_items' => _('All Guides'),
+				'edit_item' => _('Edit Guide'),
+				'update_item' => _('Update Guide'),
+				'add_new_item' => _('Add Guide'),
+				'new_item_name' => _('New Guide'),
+				'not_found' => _('No guides found'),
+				'not_found_in_trash' => _('No guides found in Trash'),			
+				
+			),
+		'public' => true,
+		'has_archive' => true,
+		'rewrite' => array('slug' => 'guides'),
+		'taxonomies'=> array('post_tag','category'),
+		'supports'=>array('title','editor','author','thumbnail','revisions','comments'),
+		//'register_meta_box_cb' => 'wcfn_guide_meta_boxes',
+		)
+	);
+}
