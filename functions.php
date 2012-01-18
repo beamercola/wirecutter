@@ -121,21 +121,57 @@ function wcfn_openx($slot) {
         */
         if($slot == '728') { ?>
             <div id="ad728"><div class="inner">
-            <!-- FM Leaderboard 1 Zone -->
-            <script type='text/javascript' src='http://static.fmpub.net/zone/6054'></script>
-            <!-- FM Leaderboard 1 Zone -->
+                <script type='text/javascript'><!--//<![CDATA[
+                var m3_u = (location.protocol=='https:'?'https://ads2.theawl.com/openx/www/delivery/ajs.php':'http://ads2.theawl.com/openx/www/delivery/ajs.php');
+                var m3_r = Math.floor(Math.random()*99999999999);
+                if (!document.MAX_used) document.MAX_used = ',';
+                document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                document.write ("?zoneid=332");
+                document.write ('&amp;cb=' + m3_r);
+                if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+                document.write ("&amp;loc=" + escape(window.location));
+                if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+                if (document.context) document.write ("&context=" + escape(document.context));
+                if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                document.write ("'><\/scr"+"ipt>");
+                //]]>--></script><noscript><a href='http://ads2.theawl.com/openx/www/delivery/ck.php?n=a5ed58b8&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads2.theawl.com/openx/www/delivery/avw.php?zoneid=332&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a5ed58b8' border='0' alt='' /></a></noscript>
             </div></div>
         <?php } else if($slot == '300a') { ?>
             <div id="ad300a"><div class="inner">
-            <!-- FM Medium Rectangle 1 Zone -->
-            <script type='text/javascript' src='http://static.fmpub.net/zone/6055'></script>
-            <!-- FM Medium Rectangle 1 Zone -->
+                <script type='text/javascript'><!--//<![CDATA[
+                var m3_u = (location.protocol=='https:'?'https://ads2.theawl.com/openx/www/delivery/ajs.php':'http://ads2.theawl.com/openx/www/delivery/ajs.php');
+                var m3_r = Math.floor(Math.random()*99999999999);
+                if (!document.MAX_used) document.MAX_used = ',';
+                document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                document.write ("?zoneid=331");
+                document.write ('&amp;cb=' + m3_r);
+                if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+                document.write ("&amp;loc=" + escape(window.location));
+                if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+                if (document.context) document.write ("&context=" + escape(document.context));
+                if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                document.write ("'><\/scr"+"ipt>");
+                //]]>--></script><noscript><a href='http://ads2.theawl.com/openx/www/delivery/ck.php?n=a904eeae&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads2.theawl.com/openx/www/delivery/avw.php?zoneid=331&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a904eeae' border='0' alt='' /></a></noscript>
             </div></div>
         <?php } else if($slot == '300b') { ?>
             <div id="ad300b"><div class="inner">
-            <!-- FM Medium Rectangle 2 Zone -->
-            <script type='text/javascript' src='http://static.fmpub.net/zone/6056'></script>
-            <!-- FM Medium Rectangle 2 Zone -->
+                <script type='text/javascript'><!--//<![CDATA[
+                var m3_u = (location.protocol=='https:'?'https://ads2.theawl.com/openx/www/delivery/ajs.php':'http://ads2.theawl.com/openx/www/delivery/ajs.php');
+                var m3_r = Math.floor(Math.random()*99999999999);
+                if (!document.MAX_used) document.MAX_used = ',';
+                document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                document.write ("?zoneid=331");
+                document.write ('&amp;cb=' + m3_r);
+                if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+                document.write ("&amp;loc=" + escape(window.location));
+                if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+                if (document.context) document.write ("&context=" + escape(document.context));
+                if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                document.write ("'><\/scr"+"ipt>");
+                //]]>--></script><noscript><a href='http://ads2.theawl.com/openx/www/delivery/ck.php?n=a904eeae&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads2.theawl.com/openx/www/delivery/avw.php?zoneid=331&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a904eeae' border='0' alt='' /></a></noscript>
             </div></div>
         <?php 
         } //end if
@@ -1375,11 +1411,13 @@ add_action('edit_term',  'bc_leaderboard_update_term2' , '', 3 );
 
 
 
-/*
- * Create a new post type = Guide
- */
 
-//register review
+/*
+ * Guides - create a new Post Type
+ * 
+ * note bc_leaderboard taxonomy support for assigning Guides to Leaderboard Categories
+ * 
+ */
 add_action( 'init', 'wcfn_add_post_type_guide' );
 function wcfn_add_post_type_guide() {
 	global $prefix;
@@ -1396,15 +1434,76 @@ function wcfn_add_post_type_guide() {
 				'add_new_item' => _('Add Guide'),
 				'new_item_name' => _('New Guide'),
 				'not_found' => _('No guides found'),
-				'not_found_in_trash' => _('No guides found in Trash'),			
-				
+				'not_found_in_trash' => _('No guides found in Trash'),	
 			),
 		'public' => true,
 		'has_archive' => true,
 		'rewrite' => array('slug' => 'guides'),
-		'taxonomies'=> array('post_tag','category'),
+		'taxonomies'=> array('post_tag','category','bc_leaderboard'),
 		'supports'=>array('title','editor','author','thumbnail','revisions','comments'),
-		//'register_meta_box_cb' => 'wcfn_guide_meta_boxes',
 		)
 	);
 }
+
+/*
+ * Example of querying Guides for a particular Leaderboard term
+ */
+/*
+global $post;
+$term_objects = wp_get_object_terms(  $post->ID, 'bc_leaderboard');
+// assuming exactly one leaderboard category
+$term_object = $term_objects[0];
+$term_slug = $term_object[0]->slug;
+$my_query = new WP_Query(array('post_type' => 'wc_guide', 'bc_leaderboard' => $term_slug));
+while ($my_query->have_posts()) {
+    $my_query->the_post();
+    print_r($post);
+}
+*/
+
+
+
+
+
+
+/*
+ * Archive Date
+ * 
+ * use built-in in_category('archive') to determined archived-ness
+ * 
+ * use get_post_meta($post->ID, 'wcarchive_date') to get date
+ *   (format is like mysql, "YYYY-mm-dd HH:MM:SS" so it should sort as-is)
+ * 
+ */
+function wcfnarchived_add_meta_boxes() {
+    add_meta_box( 'wcfnarchived-meta', 'Archive Date', 'wcfnarchived_meta_function', 'bc_review', 'side');
+}
+add_action( 'add_meta_boxes', 'wcfnarchived_add_meta_boxes' );
+
+function wcfnarchived_meta_function( $post ) {
+    $archive_date = get_post_meta( $post->ID, '_wcarchive_date', true );
+?> 
+    <input type="text" id="wcarchive_date" name="wcarchive_date" value="<?php echo(esc_attr($archive_date)) ?>"/>
+    <div class="clear"></div>
+    Leave blank to assume today.
+    <div class="clear"></div>
+    <em>(YYYY-MM-DD HH:mm:ss)</em>
+<?php
+}
+
+function wcarchived_save_post( $post_id ) {
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+        return;
+    // delete if review is not archived
+    if( ! in_category( 'archived', $post_id ) ) {
+        delete_post_meta( $post_id, '_wcarchive_date' );
+        return;
+    }
+    // otherwise, update to $_POST['wcarchive_date'] or use current date
+    $archive_date = isset( $_POST['wcarchive_date'] ) ? $_POST['wcarchive_date'] : null;
+    if( ! $archive_date ) {
+        $archive_date = current_time('mysql');
+    }
+    update_post_meta( $post_id, '_wcarchive_date', $archive_date );
+}
+add_action( 'save_post', 'wcarchived_save_post' );
