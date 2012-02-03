@@ -1,6 +1,3 @@
-      <div class="clear"></div>
-    </div> <!-- content -->
-    <?php get_sidebar('home'); ?>
     <div class="clear"></div>
   </div> <!-- wrapper -->
   <div class="clear"></div>

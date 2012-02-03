@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<div id="content">
 <ul class="leaderboard">
 <?php
   global $prefix;
@@ -92,7 +92,5 @@
     </ul>
   <div class="clear"></div>
 </div>
-    
 <?php get_sidebar('home'); ?>
-
 <?php get_footer(); ?>

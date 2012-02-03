@@ -806,7 +806,7 @@ ul.leaderboard {
           text-transform: uppercase;
           text-shadow: #fff 0 1px 0; }
           ul.leaderboard li dl dd ul li a .product {
-            color: #B0AEA7; }
+            color: #8D8B86; }
           ul.leaderboard li dl dd ul li a:hover {
             color: #df5341;
             text-decoration: none; }
@@ -849,7 +849,7 @@ ul.category-leaderboard {
     ul.category-leaderboard li h2 {
       font-size: 12px; }
     ul.category-leaderboard li h3 {
-      color: #B0AEA7;
+      color: #8D8B86;
       font-size: 12px; }
     ul.category-leaderboard li:nth-child(3n) {
       clear: right; }

@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<div id="content">
 <div id="container" class="clearfix">
     <div id="main">
         
@@ -27,4 +27,6 @@
     <?php get_sidebar(); ?>
 
 </div><!-- #container -->
+</div>
+<?php get_sidebar('home'); ?>
 <?php get_footer(); ?>

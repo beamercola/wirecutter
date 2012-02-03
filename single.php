@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<div id="content">
 <div class="article alpha grid_8">
   
   <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
@@ -36,8 +36,7 @@
   
   <?php comments_template(); ?>
 </div>
-
-
-
+</div>
+<?php get_sidebar('home'); ?>
 
 <?php get_footer(); ?>

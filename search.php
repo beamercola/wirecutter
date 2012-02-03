@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<div id="content">
 <div class="grid_6 leaderboard article alpha">
   <h1 class="page-title">Search Results: <?php echo wp_specialchars($s, 1) ?></h1>
   <?php while ( have_posts() ): the_post(); ?>
@@ -38,5 +38,7 @@
   </div>
   
 </div>
+</div>
 
+<?php get_sidebar('home'); ?>
 <?php get_footer(); ?>

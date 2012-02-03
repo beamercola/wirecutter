@@ -11,7 +11,7 @@
   $price = get_post_meta($post->ID, 'bc_price');
   $attachments = get_posts(array( 'post_type' => 'attachment', 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'asc', 'post_status' => null, 'post_parent' => $post->ID ));
 ?>
-
+<div id="content">
 <?php if(count($attachments) > 0): ?>
 <div class="image">
   <div class="large">
@@ -161,7 +161,8 @@
       <div id="facebook" class="fb-like" data-href="<?php global $fburl; echo $fburl ?>" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false"></div>
     </div>
   </div>
-  
 </div>
+</div>
+<?php get_sidebar('home'); ?>
 
 <?php get_footer(); ?>

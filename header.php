@@ -78,5 +78,4 @@
     </header>
     <div id="main" role="main">
       <div class="wrapper">
-        <div id="content">
 
