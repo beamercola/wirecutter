@@ -28,6 +28,10 @@
   </ul>
 </div>
 
-<?php get_sidebar('home'); ?>
+<div id="side">
+  <div class="side-wrapper">
+    LIST OF GUIDES HERE
+  </div>
+</div>
     
 <?php get_footer(); ?>
