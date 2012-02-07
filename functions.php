@@ -1507,3 +1507,12 @@ function wcarchived_save_post( $post_id ) {
     update_post_meta( $post_id, '_wcarchive_date', $archive_date );
 }
 add_action( 'save_post', 'wcarchived_save_post' );
+
+add_action('wp_footer', 'wcfn_fm_pixel');
+function wcfn_fm_pixel() {
+?>
+<!-- FM Tracking Pixel -->
+<script type='text/javascript' src='http://static.fmpub.net/site/wirecutter'></script>
+<!-- FM Tracking Pixel -->
+<?php }
+
