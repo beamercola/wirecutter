@@ -37,24 +37,31 @@
 
 <div id="side">
   <div class="side-wrapper">
-    <?php
-    // list all guides having this leaderboard category
-    $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-    $slug = $term->slug;
-    $guides_query = new WP_Query(array('post_type' => 'wc_guide', 'bc_leaderboard' => $slug ));
-    if( $guides_query->have_posts() ):
-      while ( $guides_query->have_posts() ): $guides_query->the_post();
-    ?>
-      <div>
-        <h3><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
-        <div><?php the_content() ?></div>
-      </div>
-      <?php endwhile; ?>
-    <?php else: ?>
-      <p>No guides</p>
-    <?php endif; ?>
+    <div class="recent">
+      <ul class="blog">
+      <?php
+      // list all guides having this leaderboard category
+      $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+      $slug = $term->slug;
+      $guides_query = new WP_Query(array('post_type' => 'wc_guide', 'bc_leaderboard' => $slug ));
+      if( $guides_query->have_posts() ):
+        while ( $guides_query->have_posts() ): $guides_query->the_post();
+      ?>
+        <li>
+          <dl>
+            <dt><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></dt>
+            <dd>
+              <?php the_excerpt() ?>
+            </dd>
+          </dl>
+        </li>
+        <?php endwhile; ?>
+      <?php else: ?>
+        <p>No guides</p>
+      <?php endif; ?>
+      </ul>
+    </div>
   </div>
 </div>
     
 <?php get_footer(); ?>
-
