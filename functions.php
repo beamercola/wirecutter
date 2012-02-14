@@ -997,6 +997,7 @@ add_action( 'wcthumb300', 'wcthumb300' );
  */
 function wcthumb300_add_meta_boxes() {
     add_meta_box( 'wcthumb300-meta', 'Thumbnail 300', 'wcthumb300_meta_function', 'post', 'normal');
+    add_meta_box( 'wcthumb300-meta', 'Thumbnail 300', 'wcthumb300_meta_function', 'wc_guide', 'normal');
 }
 add_action( 'add_meta_boxes', 'wcthumb300_add_meta_boxes' );
 

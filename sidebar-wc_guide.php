@@ -25,6 +25,7 @@
           <dl>
             <dt><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></dt>
             <dd>
+              <a href="<?php echo the_permalink();?>"><?php do_action('wcthumb300') ?></a>
               <?php the_excerpt() ?>
             </dd>
           </dl>
@@ -47,6 +48,7 @@
           <dl>
             <dt><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></dt>
             <dd>
+              <a href="<?php echo the_permalink();?>"><?php do_action('wcthumb300') ?></a>
               <?php the_excerpt() ?>
             </dd>
           </dl>
