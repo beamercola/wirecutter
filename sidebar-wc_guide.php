@@ -13,7 +13,6 @@
   <div class="side-wrapper">
     <div class="recent">
 
-
       <ul class="blog">
       <?php
       // list all Guides having this leaderboard category
@@ -31,11 +30,10 @@
           </dl>
         </li>
         <?php endwhile; ?>
-      <?php else: ?>
-        <p>No guides</p>
       <?php endif; ?>
       </ul>
-
+      
+      <hr />
 
       <ul class="blog">
       <?php
