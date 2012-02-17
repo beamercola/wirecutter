@@ -26,7 +26,6 @@
 
 
 <div class="grid_6 alpha article">
-  
   <div class="breadcrumbs">
     <a href="/">Home</a> &rsaquo;
     <?php
@@ -163,6 +162,6 @@
   </div>
 </div>
 </div>
-<?php get_sidebar('home'); ?>
+<?php get_sidebar('wc_guide'); ?>
 
 <?php get_footer(); ?>
