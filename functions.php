@@ -1577,3 +1577,156 @@ add_action('edit_term',  'wc_homepage_checkbox_update_term', '', 3 );
 
 
 
+
+
+
+
+/*
+ *
+ * Alternative Leaderboard header image uploader
+ *
+ * Specify a particular image size here: http://thewirecutter.com/wp/wp-admin/upload.php?page=ais_admin
+ * - using 200x75 as a temporary placeholder, see placehold.it about 22 lines down
+ *
+ */
+
+/*
+ * Returns URL of the alternative leaderboard header image
+ */
+function wc_alt_leaderboard_imgsrc( $term_id ) {
+    $wc_alt_leaderboard_imgs = get_option( 'wc_alt_leaderboard_images', array() );
+    if( array_key_exists($term_id, $wc_alt_leaderboard_imgs) ) {
+        if( $wc_alt_leaderboard_imgs[$term_id] ) {
+            return $wc_alt_leaderboard_imgs[$term_id];
+        }
+    }
+    return '';
+}
+
+/*
+ * Include required scripts/css for WP image uploader
+ */
+function wc_alt_leaderboard_admin_enqueue_script( $hook ) {
+    if( $hook == 'edit-tags.php' && $_GET['taxonomy'] == 'bc_leaderboard' ) {
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'media-upload' );
+        wp_enqueue_script( 'thickbox' );
+        wp_enqueue_style( 'thickbox' );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'wc_alt_leaderboard_admin_enqueue_script' );
+
+/*
+ * Taxonomy Page
+ * http://thewirecutter.com.localhost/wp/wp-admin/edit-tags.php?taxonomy=bc_leaderboard&post_type=bc_review&message=3
+ */
+function wc_alt_leaderboard_add_form_fields() {
+    $wc_alt_leaderboard_default_img = 'http://placehold.it/200x75/ffffff';
+?>
+    <div class="form-field">
+        <label for="tag-alt-leaderboard">Alt. Header Image</label>
+            <img id="wc_alt_leaderboard_image" src="<?php echo $wc_alt_leaderboard_default_img ?>"/>
+            <input id="wc_alt_leaderboard_image_upload" class="button-secondary" type="button" value="Upload"/>
+            <br clear="all">
+            <input id="wc_alt_leaderboard_input" type="text" name="wc_alt_leaderboard_image" value="<?php echo $wc_alt_leaderboard_default_img ?>"/>
+    </div>
+    <?php wc_alt_leaderboard_script(); ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#submit').click(function() {
+           $('#wc_alt_leaderboard_image').attr('src', '<?php echo $wc_alt_leaderboard_default_img ?>');
+           return false; 
+        });
+    });
+    </script>
+<?php 
+}
+add_action('bc_leaderboard_add_form_fields', 'wc_alt_leaderboard_add_form_fields');
+
+/*
+ * Taxonomy Edit Item
+ * http://thewirecutter.com.localhost/wp/wp-admin/edit-tags.php?action=edit&taxonomy=bc_leaderboard&tag_ID=6&post_type=bc_review
+ */
+function wc_alt_leaderboard_edit_form_fields() {
+    $category = get_term($_GET['tag_ID'], 'bc_leaderboard');
+    $category->alt_leaderboard_image = wc_alt_leaderboard_imgsrc( $category->term_id );
+?>
+    <tr class="form-field">
+        <th scope="row" valign="top"><label for="alt-leaderboard">Alt. Header Image</label></th>
+        <td>
+            <img id="wc_alt_leaderboard_image" src="<?php echo esc_url($category->alt_leaderboard_image) ?>"/>
+            <input id="wc_alt_leaderboard_upload" class="button-secondary" type="button" value="Upload"/>
+            <br clear="all">
+            <input id="wc_alt_leaderboard_input" type="text" name="wc_alt_leaderboard_image" value="<?php echo esc_url($category->alt_leaderboard_image) ?>"/>
+        </td>
+    </tr>
+    <?php wc_alt_leaderboard_script(); ?>
+<?php
+}
+add_action('bc_leaderboard_edit_form_fields', 'wc_alt_leaderboard_edit_form_fields');
+
+function wc_alt_leaderboard_script() {
+?>
+    <style type="text/css">
+        #wc_alt_leaderboard_image {float: left; max-width: 300px; border: 1px solid #555;}
+        #wc_alt_leaderboard_upload {float: left; width: 50px !important;}
+        #wc_alt_leaderboard_input {clear: left; width: 400px !important;}
+    </style>
+    <script type="text/javascript">
+    // intercept WP Image Uploader results
+    jQuery(document).ready(function($) {
+        // target field
+        var wc_alt_leaderboard_field = null;
+        var formfield = null;
+        // open thickbox media uploader
+        $('#wc_alt_leaderboard_upload').click(function() {
+            $('html').addClass('Image');
+            formfield = $('#wc_alt_leaderboard_input').attr('name');
+            wc_alt_leaderboard_field = $('#wc_alt_leaderboard_input');
+            tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+            return false;
+        });
+        // thickbox INSERT INTO POST callback
+        window.original_send_to_editor = window.send_to_editor;
+        window.send_to_editor = function(html) {
+            var fileurl;
+            if(formfield != null) {
+                html = "<div>"+html+"</div>";
+                html = $(html).find('img');
+                fileurl = $(html).attr('src');
+                wc_alt_leaderboard_field.val(fileurl);
+                formfield = $('#wc_alt_leaderboard_image').attr('src', fileurl);
+                tb_remove();
+                $('html').removeClass('Image');
+                formfield = null;
+                wc_alt_leaderboard_field = null;
+            } else {
+                window.original_send_to_editor(html);
+            }
+        };
+    });
+    </script>
+<?php
+}
+
+/*
+ * Intercept taxonomy update and save into wp_options table
+ */
+function wc_alt_leaderboard_update_term( $term_id, $tt_id, $taxonomy ) {
+    if( ! isset( $_POST['taxonomy'] ) ) {
+        return;
+    }
+    if( $_POST['taxonomy'] != 'bc_leaderboard' ) {
+        return;
+    }
+    // icon url
+    $wc_alt_leaderboard_images = get_option( 'wc_alt_leaderboard_images', array() );
+    $wc_alt_leaderboard_images[$term_id] = $_POST['wc_alt_leaderboard_image'];
+    update_option('wc_alt_leaderboard_images', $wc_alt_leaderboard_images);
+}
+add_action('created_term',  'wc_alt_leaderboard_update_term' , '', 3 );
+add_action('edit_term',  'wc_alt_leaderboard_update_term' , '', 3 );
+
+
+
+
