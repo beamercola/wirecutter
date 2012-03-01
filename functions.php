@@ -126,7 +126,7 @@ function wcfn_openx($slot) {
                 var m3_r = Math.floor(Math.random()*99999999999);
                 if (!document.MAX_used) document.MAX_used = ',';
                 document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-                document.write ("?zoneid=332");
+                document.write ("?zoneid=141");
                 document.write ('&amp;cb=' + m3_r);
                 if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
                 document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
@@ -135,7 +135,7 @@ function wcfn_openx($slot) {
                 if (document.context) document.write ("&context=" + escape(document.context));
                 if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
                 document.write ("'><\/scr"+"ipt>");
-                //]]>--></script><noscript><a href='http://ads.theawl.com/openx/www/delivery/ck.php?n=a5ed58b8&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.theawl.com/openx/www/delivery/avw.php?zoneid=332&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a5ed58b8' border='0' alt='' /></a></noscript>
+                //]]>--></script><noscript><a href='http://ads.theawl.com/openx/www/delivery/ck.php?n=a5ed58b8&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.theawl.com/openx/www/delivery/avw.php?zoneid=141&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a5ed58b8' border='0' alt='' /></a></noscript>
             </div></div>
         <?php } else if($slot == '300a') { ?>
             <div id="ad300a"><div class="inner">
@@ -144,7 +144,7 @@ function wcfn_openx($slot) {
                 var m3_r = Math.floor(Math.random()*99999999999);
                 if (!document.MAX_used) document.MAX_used = ',';
                 document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-                document.write ("?zoneid=331");
+                document.write ("?zoneid=140");
                 document.write ('&amp;cb=' + m3_r);
                 if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
                 document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
@@ -153,7 +153,7 @@ function wcfn_openx($slot) {
                 if (document.context) document.write ("&context=" + escape(document.context));
                 if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
                 document.write ("'><\/scr"+"ipt>");
-                //]]>--></script><noscript><a href='http://ads.theawl.com/openx/www/delivery/ck.php?n=a904eeae&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.theawl.com/openx/www/delivery/avw.php?zoneid=331&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a904eeae' border='0' alt='' /></a></noscript>
+                //]]>--></script><noscript><a href='http://ads.theawl.com/openx/www/delivery/ck.php?n=a904eeae&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.theawl.com/openx/www/delivery/avw.php?zoneid=140&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a904eeae' border='0' alt='' /></a></noscript>
             </div></div>
         <?php } else if($slot == '300b') { ?>
             <div id="ad300b"><div class="inner">
@@ -162,7 +162,7 @@ function wcfn_openx($slot) {
                 var m3_r = Math.floor(Math.random()*99999999999);
                 if (!document.MAX_used) document.MAX_used = ',';
                 document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-                document.write ("?zoneid=331");
+                document.write ("?zoneid=140");
                 document.write ('&amp;cb=' + m3_r);
                 if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
                 document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
@@ -171,7 +171,7 @@ function wcfn_openx($slot) {
                 if (document.context) document.write ("&context=" + escape(document.context));
                 if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
                 document.write ("'><\/scr"+"ipt>");
-                //]]>--></script><noscript><a href='http://ads.theawl.com/openx/www/delivery/ck.php?n=a904eeae&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.theawl.com/openx/www/delivery/avw.php?zoneid=331&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a904eeae' border='0' alt='' /></a></noscript>
+                //]]>--></script><noscript><a href='http://ads.theawl.com/openx/www/delivery/ck.php?n=a904eeae&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.theawl.com/openx/www/delivery/avw.php?zoneid=140&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a904eeae' border='0' alt='' /></a></noscript>
             </div></div>
         <?php 
         } //end if
