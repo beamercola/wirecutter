@@ -1517,3 +1517,63 @@ function wcfn_fm_pixel() {
 <!-- FM Tracking Pixel -->
 <?php }
 
+
+
+
+/*
+ * Specify an alternative leaderboard image - Add Taxonomy Page
+ * http://thewirecutter.com.localhost/wp/wp-admin/edit-tags.php?taxonomy=bc_leaderboard&post_type=bc_review&message=3
+ */
+function wc_homepage_checkbox_add_form_fields() {
+  $wc_homepage_checkbox = 0;
+?>
+    <div class="form-field">
+        <label for="tag-homepage-checkbox">Show on Homepage?</label>
+        <input id="wc_homepage_checkbox" type="checkbox" name="wc_homepage_checkbox" <?php echo checked($wc_homepage_checkbox, '1') ?> />
+    </div>
+<?php 
+}
+add_action('bc_leaderboard_add_form_fields', 'wc_homepage_checkbox_add_form_fields');
+
+/*
+ * Specify an alternative leaderboard image - Edit Taxonomy Page
+ * http://thewirecutter.com.localhost/wp/wp-admin/edit-tags.php?action=edit&taxonomy=bc_leaderboard&tag_ID=6&post_type=bc_review
+ */
+function wc_homepage_checkbox_edit_form_fields() {
+  $category = get_term($_GET['tag_ID'], 'bc_leaderboard');
+  $wc_homepage_checkboxes = get_option( 'wc_homepage_checkbox', array() );
+  $wc_homepage_checkbox = array_key_exists( $category->term_id, $wc_homepage_checkboxes ) ? $wc_homepage_checkboxes[$category->term_id] : 0;
+?>
+    <tr class="form-field">
+        <th scope="row" valign="top">
+          <label for="homeage-checkbox">Show on Homepage?</label>
+        </th>
+        <td>
+          <input id="wc_homepage_checkbox" type="checkbox" name="wc_homepage_checkbox" <?php echo checked($wc_homepage_checkbox, '1') ?> />
+        </td>
+    </tr>
+<?php
+}
+add_action('bc_leaderboard_edit_form_fields', 'wc_homepage_checkbox_edit_form_fields');
+
+/*
+ * Intercept taxonomy update and save into wp_options table
+ */
+function wc_homepage_checkbox_update_term( $term_id, $tt_id, $taxonomy ) {
+    if( ! isset( $_POST['taxonomy'] ) ) {
+        return;
+    }
+    if( $_POST['taxonomy'] != 'bc_leaderboard' ) {
+        return;
+    }
+    // homepage checkbox
+    $wc_homepage_checkboxes = get_option( 'wc_homepage_checkbox', array() );
+    $wc_homepage_checkboxes[$term_id] = isset( $_POST['wc_homepage_checkbox'] ) ? 1 : 0;
+    update_option('wc_homepage_checkbox', $wc_homepage_checkboxes);
+}
+add_action('created_term',  'wc_homepage_checkbox_update_term', '', 3 );
+add_action('edit_term',  'wc_homepage_checkbox_update_term', '', 3 );
+
+
+
+
