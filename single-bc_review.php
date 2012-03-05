@@ -105,7 +105,7 @@
         <dd>
           <ul>
             <?php foreach($sources as $s) { ?>
-              <li class="<?php echo strtolower($s['source_entry_title']) ?>">
+              <li class="<?php echo join('-',explode(' ', strtolower($s['source_entry_title']))) ?>">
                 <a href="<?php echo $s['source_url'] ?>">Buy on <?php echo $s['source_entry_title'] ?></a>
               </li>
             <?php } ?>
