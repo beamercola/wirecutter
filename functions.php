@@ -1808,6 +1808,12 @@ function wchomeorder_settings_page() {
             $wchomeorder_order[$category->term_id] = array();
         }
     }
+    // add new categories to the end
+    foreach( $categories as $category ) {
+      if( ! array_key_exists( $category->term_id, $wchomeorder_order ) ) {
+        $wchomeorder_order[ $category->term_id ] = array();
+      }
+    }
 
     // categories to shown on homepage ( map of term_id => bool )
     $keep_categories = get_option( 'wc_homepage_checkbox', null );
