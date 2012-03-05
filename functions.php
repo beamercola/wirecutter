@@ -1730,3 +1730,197 @@ add_action('edit_term',  'wc_alt_leaderboard_update_term' , '', 3 );
 
 
 
+
+
+
+
+
+
+/*
+ *
+ * Homepage Sorting
+ * 
+ * defines an assoc array ( term_id => array( post_id, post_id, post_id ) )
+ *
+ *
+ * Add to Admin Menu
+ */
+function wchomeorder_admin_menu() {
+    add_menu_page( 'Homepage Order',
+        'Homepage Order',
+        'manage_options',
+        'wchomeorder_settings',
+        'wchomeorder_settings_page' 
+    );
+}
+add_action( 'admin_menu', 'wchomeorder_admin_menu' );
+
+/*
+ * Include required scripts/css for WP image uploader
+ */
+function wchomeorder_admin_enqueue_script( $hook ) {
+    if( $hook == 'toplevel_page_wchomeorder_settings' ) {
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'jquery-ui-core' );
+        wp_enqueue_script( 'jquery-ui-sortable' );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'wchomeorder_admin_enqueue_script' );
+
+/*
+ * Draw the settings Page
+ * - grid of current homepage images
+ * - buttons to upload new images
+ */
+function wchomeorder_settings_page() {
+    global $wp_query, $post;
+    // update on POST
+    if( isset($_POST['wchomeorder_order']) ) {
+        $order = $_POST['wchomeorder_order'];
+        update_option( 'wchomeorder_order', $order );
+    }
+?>
+    <form method="post" id="wchomeorder_form">
+    <h2>Homepage Order <input type="submit" value="Update" class="button-primary"/></h2>
+<?php
+    // get leaderboard categories in same order as homepage
+    $args = array(
+        'type'            => 'bc_review',
+        'orderby'         => 'count',
+        'parent'          => 0,
+        'order'           => 'DESC',
+        'hide_empty'      => 0,
+        'hierarchical'    => 0,
+        'taxonomy'        => 'bc_leaderboard',
+        'pad_counts'      => false
+    );
+    $categories = get_categories($args);
+    // sort categories based on wchomeorder_order
+    $categories_by_id = array();
+    for($i=0; $i<count($categories); $i++) {
+        $category = $categories[$i];
+        $categories_by_id[$category->term_id] = $category;
+    }
+    $wchomeorder_order = get_option( 'wchomeorder_order', NULL );
+    if( ! is_array( $wchomeorder_order )) {
+        $wchomeorder_order = array();
+        foreach($categories as $category) {
+            $wchomeorder_order[$category->term_id] = array();
+        }
+    }
+
+    // categories to shown on homepage ( map of term_id => bool )
+    $keep_categories = get_option( 'wc_homepage_checkbox', null );
+
+    $categories = array();
+    foreach($wchomeorder_order as $k=>$v) {
+        // add the category in order
+        $category = $categories_by_id[$k];
+
+        // skip if not a homepage category
+        if( ! array_key_exists($category->term_id, $keep_categories) || ! $keep_categories[$category->term_id] ) {
+          continue;
+        }
+
+        $categories[] = $category;
+        // get all posts in this category
+        $temp_posts = array();
+        $wp_query = new WP_Query();
+        $args = array( 'tax_query' => array( 'relation' => 'AND', array( 'taxonomy' => 'bc_leaderboard', 'field' => 'slug', 'terms' => array($category->slug), ), array( 'taxonomy' => 'category', 'field' => 'id', 'terms' => array(1), 'operator' => 'NOT IN', ) ), 'post_type'=> 'bc_review' );
+        $wp_query->query($args);
+        if($wp_query->have_posts()) {
+            while( $wp_query->have_posts() ) {
+                $homeTitle = ''; $subTitle = '';
+                $wp_query->the_post();
+                if( get_post_meta($post->ID, 'bc_short_title') ) {
+                    $homeTitle = get_post_meta( $post->ID, 'bc_short_title', true );
+                } else {
+                    $homeTitle = $post->post_title;
+                }
+                if( get_post_meta($post->ID, 'bc_sub_title') ) { 
+                    $subTitle = get_post_meta($post->ID, 'bc_sub_title', true);
+                }
+                $temp_posts[$post->ID] = array(
+                    'ID' => $post->ID,
+                    'homeTitle' => $homeTitle,
+                    'subTitle' => $subTitle
+                );
+            }
+        }
+        // sort according to order
+        $category->posts = array();
+        if( $v ) {
+            $order = explode(',',$v);
+            foreach($order as $idx) {
+              // put in order, append missing indices to the end
+              if( array_key_exists( $idx, $temp_posts ) ) {
+                $category->posts[] = $temp_posts[$idx];
+                unset( $temp_posts[$idx] );
+              }
+            }
+            foreach( $temp_posts as $k => $v ) {
+              $category->posts[] = $v;
+          }
+        } else {
+            foreach($temp_posts as $k => $v) {
+                $category->posts[] = $v;
+            }
+        }
+    }
+?>
+    <table class="form-table">
+    <tr valign="top">
+    <td>
+        <ul id="sortable">
+        <?php for($i=0; $i<count($categories); $i++): $category = $categories[$i]; ?>
+            <li data-category_id="<?php echo $category->term_id ?>">
+                <h3><?php echo $category->name ?></h3>
+                <ul class="sortable">
+                <?php foreach($category->posts as $post): ?>
+                    <li data-post_id="<?php echo $post['ID'] ?>"><h4><?php echo $post['homeTitle'] ?> <span><?php echo $post['subTitle'] ?></span></h4></li>
+                <?php endforeach; ?>
+                </ul>
+            </li>
+        <?php endfor; ?>
+        </ul>
+    </td>
+    </tr>
+    </table>
+    </form>
+    <style type="text/css">
+    .form-table td {border: 1px solid #555;}
+    .form-table td img {display:block; border: 1px solid #000; }
+    #sortable { list-style-type: none; margin: 0; padding: 0; width: 50%; }
+	  #sortable > li { background-color: #eee; padding: 5px 10px; }
+    #sortable li li { background-color: #ddd; margin-left: 10px; padding-left: 10px; }
+    #sortable span { font-weight: normal; }
+    #sortable h4 {margin: 0;}
+    #sortable li li:nth-child(n+4) { background-color: #f77; }
+	</style>
+    <script type="text/javascript">
+    // make em sortable
+    jQuery(document).ready(function($) {
+        $(function() {
+            $( "#sortable" ).sortable();
+            $( "#sortable" ).disableSelection();
+            $( ".sortable" ).sortable();
+            $( ".sortable" ).disableSelection();
+        });
+        $('#wchomeorder_form').submit(function() {
+            $('#sortable > li').each(function() {
+                var key = 'wchomeorder_order['+$(this).data('category_id')+']';
+                var val = [];
+                $(this).find('li').each(function() {
+                    val.push($(this).data('post_id'));
+                });
+                val = val.join(',');
+                $('#wchomeorder_form').append($("<input>").attr("type", "hidden").attr("name", key).val(val));
+            });
+        });
+    });
+    </script>
+<?php
+}
+
+
+
